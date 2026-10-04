@@ -5,6 +5,7 @@ import type { Store } from "../db/store";
 import type { Scheduler } from "../core/scheduler";
 import type { OurExchangers } from "../core/ourExchangers";
 import { adminGuard } from "./auth";
+import { revalidateExchangerPages } from "../core/revalidate";
 
 const page = z.object({ limit: z.coerce.number().int().min(1).max(200).default(50), offset: z.coerce.number().int().min(0).default(0) });
 
@@ -116,6 +117,20 @@ export const registerAdminRoutes = (app: FastifyInstance, deps: { store: Store; 
       } catch (err) {
         return reply.code(500).send({ ok: false, error: err instanceof Error ? err.message : String(err) });
       }
+    });
+
+    // Ask the front to regenerate the pages of every linked exchanger (e.g. right after a front deploy).
+    admin.post("/revalidate-all", async (_req, reply) => {
+      if (!config.FRONT_URL || !config.REVALIDATE_SECRET) return reply.code(503).send({ error: "FRONT_URL / REVALIDATE_SECRET not configured" });
+      const names = [...new Set(store.listLinks().map((l) => l.our_name).filter((n): n is string => !!n))];
+      const out = { requested: 0, ok: true, batches: 0 };
+      for (let i = 0; i < names.length; i += 50) {
+        const r = await revalidateExchangerPages(config, names.slice(i, i + 50));
+        out.requested += r.requested;
+        out.ok = out.ok && r.ok;
+        out.batches++;
+      }
+      return out;
     });
 
     admin.get("/fetches", async () => ({ items: store.recentFetches(100) }));

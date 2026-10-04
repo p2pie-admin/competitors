@@ -128,3 +128,8 @@ test("admin: unmatched lists our active exchangers without a link and stored con
   assert.deepEqual(body.ourWithoutLink, []);
   assert.equal(body.conflicts[0].name, "Сова");
 });
+
+test("admin: revalidate-all needs front configuration", async () => {
+  const { app } = setup();
+  assert.equal((await app.inject({ method: "POST", url: "/admin/revalidate-all", headers: H })).statusCode, 503);
+});
