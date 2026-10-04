@@ -43,6 +43,10 @@ const looksLikeCode = (text: string): boolean => (text.match(/[{};=<>]|=>|\)\s*\
 
 export const sanitizeReviewText = (raw: string): string => cleanText(raw).slice(0, 4000);
 
+/** Replies of exchangers are copied too: drop the whole reply when it carries a link, e-mail, handle or phone. */
+export const replyIsClean = (text: string): boolean =>
+  !EMAIL_RE.test(text) && !URL_RE.test(text) && !HANDLE_RE.test(text) && !TG_RE.test(text) && !PHONE_RE.test(text) && !ADDRESS_RE.test(text);
+
 export const evaluateReview = (i: ModerationInput): Verdict => {
   const text = i.text;
   if (i.flaggedBySource) return { status: "pending", reason: `source-flag:${(i.sourceFlagText || "flagged").slice(0, 80)}` };

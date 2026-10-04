@@ -23,6 +23,8 @@ export type StrapiReviewInput = {
   external_link: string;
   external_id: string;
   external_date: string;
+  /** The date shown and sorted by (= external_date for copies). */
+  review_date: string;
 };
 
 /**

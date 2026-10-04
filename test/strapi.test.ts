@@ -95,9 +95,9 @@ test("review mapping: native format plus provenance, deterministic fingerprint",
   store.upsertReview(review("1", { reply_author: "Администратор Сова", reply_text: "Спасибо!", reply_at: NOW }));
   const r = store.listReviews({ limit: 1, offset: 0 })[0]!;
   const m = toStrapiReview(r, "859");
-  assert.deepEqual({ ...m, external_date: "x" }, {
+  assert.deepEqual({ ...m, external_date: "x", review_date: "x" }, {
     exchanger: "859", text: r.text, type: "positive", name: "Андрей", location: "Россия", fingerprint: "ext:bestchange:1", isApproved: true,
-    source: "BestChange", external_link: "https://www.bestchange.ru/sova-exchanger.html?review=1", external_id: "bestchange:1", external_date: "x",
+    source: "BestChange", external_link: "https://www.bestchange.ru/sova-exchanger.html?review=1", external_id: "bestchange:1", external_date: "x", review_date: "x",
   });
   assert.equal(m.external_date, new Date(r.posted_at * 1000).toISOString());
   assert.notEqual(contentHash(r, "859"), contentHash(r, "860"), "moving to another exchanger changes the hash");
@@ -263,4 +263,32 @@ test("only the newest N reviews per exchanger and source are kept in Strapi; the
   assert.equal(s.created, 1);
   assert.equal(s.removed, 1);
   assert.deepEqual([...fake.reviews.values()].map((r) => r.external_id).sort(), ["bestchange:0", "bestchange:1", "bestchange:2"]);
+});
+
+test("a changed review does not recreate its unchanged reply; a changed reply is replaced", async () => {
+  const { ctx, store, fake } = setup();
+  store.upsertReview(review("1", { reply_author: "A", reply_text: "Ответ", reply_at: NOW }));
+  await runStrapiSync(ctx);
+  const replyId = [...fake.replies.keys()][0];
+  store.upsertReview(review("1", { text: "Отзыв 1: правка текста автором отзыва", text_hash: "h1x", reply_author: "A", reply_text: "Ответ", reply_at: NOW }));
+  await runStrapiSync(ctx);
+  assert.deepEqual([...fake.replies.keys()], [replyId], "same reply kept");
+  store.upsertReview(review("1", { text: "Отзыв 1: правка текста автором отзыва", text_hash: "h1x", reply_author: "A", reply_text: "Новый ответ", reply_at: NOW }));
+  await runStrapiSync(ctx);
+  assert.deepEqual([...fake.replies.values()].map((r) => r.text), ["Новый ответ"]);
+  assert.notEqual([...fake.replies.keys()][0], replyId);
+});
+
+test("exchanger replies with links or contacts are not copied", async () => {
+  const { importReviews } = await import("../src/core/importReviews");
+  const { ctx, store } = setup();
+  const base = { kind: "review" as const, author: "A", country: null, rating: 5, sentiment: "positive" as const, postedAt: NOW, permalink: "u", flagTexts: [] };
+  importReviews(ctx, "bestchange", { ext_id: "1006" }, [
+    { ...base, extReviewId: "10", text: "Хороший обмен, всё быстро и четко", reply: { author: "Админ", at: NOW, text: "Спасибо! Пишите нам на support@sova.gg или https://sova.gg/vip" } },
+    { ...base, extReviewId: "11", text: "Второй хороший отзыв про обмен, быстро", reply: { author: "Админ", at: NOW, text: "Спасибо за отзыв, ждём вас снова" } },
+  ], "https://x");
+  const rows = store.listReviews({ limit: 10, offset: 0 });
+  assert.equal(rows.find((r) => r.ext_review_id === "10")!.reply_text, null);
+  assert.equal(rows.find((r) => r.ext_review_id === "10")!.status, "published", "the review itself is fine");
+  assert.equal(rows.find((r) => r.ext_review_id === "11")!.reply_text, "Спасибо за отзыв, ждём вас снова");
 });

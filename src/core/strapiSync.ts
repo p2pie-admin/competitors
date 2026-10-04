@@ -21,11 +21,15 @@ export const toStrapiReview = (r: ExternalReview, ourExchangerId: string): Strap
   external_link: r.source_url,
   external_id: `${r.source}:${r.ext_review_id}`,
   external_date: toIso(r.posted_at),
+  review_date: toIso(r.posted_at),
 });
 
-/** Everything that, when changed, must be pushed to Strapi again. */
+/**
+ * Everything that, when changed, must be pushed to Strapi again: "<review part>.<reply part>", so a changed review
+ * does not recreate an unchanged reply (and vice versa).
+ */
 export const contentHash = (r: ExternalReview, ourExchangerId: string): string =>
-  sha1(JSON.stringify([toStrapiReview(r, ourExchangerId), r.reply_text ?? null, r.reply_author ?? null]));
+  `${sha1(JSON.stringify(toStrapiReview(r, ourExchangerId)))}.${sha1(JSON.stringify([r.reply_text ?? null, r.reply_author ?? null]))}`;
 
 /**
  * Keeps Strapi's `review` collection in line with our external_reviews table:
@@ -105,8 +109,12 @@ export const runStrapiSync = async (ctx: JobCtx): Promise<Record<string, unknown
           }
           throw err;
         }
-        if (r.strapi_reply_id) await strapi.deleteReply(r.strapi_reply_id);
-        const replyId = r.reply_text ? await strapi.createReply(r.strapi_id!, r.reply_text) : null;
+        let replyId = r.strapi_reply_id;
+        const [, oldReplyPart] = (r.synced_hash ?? "").split(".");
+        if (oldReplyPart !== hash.split(".")[1]) {
+          if (r.strapi_reply_id) await strapi.deleteReply(r.strapi_reply_id);
+          replyId = r.reply_text ? await strapi.createReply(r.strapi_id!, r.reply_text) : null;
+        }
         store.markSynced(r.id, r.strapi_id!, replyId, hash);
         if (r.our_name) touched.add(r.our_name);
       });

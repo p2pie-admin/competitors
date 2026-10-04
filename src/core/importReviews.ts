@@ -1,6 +1,6 @@
 import type { JobCtx } from "./types";
 import type { NewReview, SourceExchanger } from "../db/store";
-import { evaluateReview, sanitizeReviewText } from "./moderation";
+import { evaluateReview, replyIsClean, sanitizeReviewText } from "./moderation";
 import { cleanCountry, sha1 } from "./normalize";
 
 /** A review as scraped from any source, before moderation. */
@@ -58,6 +58,9 @@ export const importReviews = (
       minChars: config.MIN_REVIEW_CHARS,
       duplicatesOfText: store.countSameText(source, exchanger.ext_id, hash, r.extReviewId),
     });
+    // The reply is shown next to the review: without a link/contact, otherwise it is not shown at all.
+    const replyText = r.reply ? sanitizeReviewText(r.reply.text) : null;
+    const reply = r.reply && replyText && replyIsClean(replyText) ? { ...r.reply, text: replyText } : null;
     const row: NewReview = {
       source,
       ext_id: exchanger.ext_id,
@@ -69,9 +72,9 @@ export const importReviews = (
       text_hash: hash,
       posted_at: r.postedAt,
       source_url: r.permalink ?? `${pageUrl}#${r.extReviewId}`,
-      reply_author: r.reply ? r.reply.author.slice(0, 80) : null,
-      reply_text: r.reply ? sanitizeReviewText(r.reply.text) : null,
-      reply_at: r.reply?.at ?? null,
+      reply_author: reply ? reply.author.slice(0, 80) : null,
+      reply_text: reply ? reply.text : null,
+      reply_at: reply?.at ?? null,
       status: verdict.status,
       reject_reason: verdict.reason,
       sentiment: r.sentiment,
