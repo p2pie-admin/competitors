@@ -1,0 +1,16 @@
+# Local convenience compose. Production uses the service entry in the VDS compose file
+# (see README: image darkshrine/competitors:latest, volume competitors_data, network my-network).
+services:
+  competitors:
+    container_name: competitors
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: darkshrine/competitors:latest
+    env_file: .env
+    ports:
+      - "127.0.0.1:5100:5100"
+    volumes:
+      - competitors_data:/data
+volumes:
+  competitors_data:

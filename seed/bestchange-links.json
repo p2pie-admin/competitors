@@ -1,0 +1,2156 @@
+[
+ {
+  "ext_id": "372",
+  "name": "HotExchange",
+  "slug": "hotexchange",
+  "domain": "hot24.exchange"
+ },
+ {
+  "ext_id": "291",
+  "name": "Ukr-Obmen",
+  "slug": "ukr-obmen",
+  "domain": "ukr-obmen.com"
+ },
+ {
+  "ext_id": "1141",
+  "name": "Kingex",
+  "slug": "kingex",
+  "domain": "kingex.io"
+ },
+ {
+  "ext_id": "618",
+  "name": "24BestEx",
+  "slug": "24bestex",
+  "domain": "24bestex.com"
+ },
+ {
+  "ext_id": "1152",
+  "name": "NafaChange",
+  "slug": "nafachange",
+  "domain": "nafachange.com"
+ },
+ {
+  "ext_id": "1242",
+  "name": "NextCoin",
+  "slug": "nextcoin",
+  "domain": "nextcoin.pro"
+ },
+ {
+  "ext_id": "686",
+  "name": "1Mile",
+  "slug": "1mile",
+  "domain": "1mile.co"
+ },
+ {
+  "ext_id": "1034",
+  "name": "ClickPay",
+  "slug": "clickpay",
+  "domain": "clickpay.cx"
+ },
+ {
+  "ext_id": "565",
+  "name": "Transfer24",
+  "slug": "transfer24",
+  "domain": "transfer24.pro"
+ },
+ {
+  "ext_id": "1110",
+  "name": "XChangic",
+  "slug": "xchangic",
+  "domain": "xchangic.com"
+ },
+ {
+  "ext_id": "950",
+  "name": "UAchanger",
+  "slug": "uachanger",
+  "domain": "uachanger.com"
+ },
+ {
+  "ext_id": "337",
+  "name": "1WM",
+  "slug": "1wm",
+  "domain": "1wm.io"
+ },
+ {
+  "ext_id": "521",
+  "name": "Mine",
+  "slug": "mine",
+  "domain": "mine.exchange"
+ },
+ {
+  "ext_id": "730",
+  "name": "WmMoney",
+  "slug": "wmmoney",
+  "domain": "wm.money"
+ },
+ {
+  "ext_id": "898",
+  "name": "Vobmenka",
+  "slug": "vobmenka",
+  "domain": "vobmenka.com"
+ },
+ {
+  "ext_id": "640",
+  "name": "BTC2Pay",
+  "slug": "btc2pay",
+  "domain": "btc2pay.org"
+ },
+ {
+  "ext_id": "468",
+  "name": "Magnatus",
+  "slug": "magnatus",
+  "domain": "magnatus.com"
+ },
+ {
+  "ext_id": "1284",
+  "name": "Rex",
+  "slug": "rexexio",
+  "domain": "rexex.io"
+ },
+ {
+  "ext_id": "1216",
+  "name": "Moneta365",
+  "slug": "moneta365",
+  "domain": "moneta365.com"
+ },
+ {
+  "ext_id": "466",
+  "name": "BtcChange24",
+  "slug": "btcchange24",
+  "domain": "btcchange24.com"
+ },
+ {
+  "ext_id": "982",
+  "name": "WxMoney",
+  "slug": "wxmoney",
+  "domain": "wx.money"
+ },
+ {
+  "ext_id": "1013",
+  "name": "AvanChange",
+  "slug": "avanchange",
+  "domain": "avanchange.com"
+ },
+ {
+  "ext_id": "588",
+  "name": "7Money",
+  "slug": "7money",
+  "domain": "7money.co"
+ },
+ {
+  "ext_id": "1266",
+  "name": "CryptoRoyal",
+  "slug": "cryptoroyal",
+  "domain": "cryptoroyal.exchange"
+ },
+ {
+  "ext_id": "1241",
+  "name": "TrustMeCash",
+  "slug": "trustmecash",
+  "domain": "chrome-error"
+ },
+ {
+  "ext_id": "1095",
+  "name": "YaObmen",
+  "slug": "yaobmen",
+  "domain": "yaobmen.cash"
+ },
+ {
+  "ext_id": "1161",
+  "name": "CoinCraddle",
+  "slug": "coincraddle",
+  "domain": "coincraddle.com"
+ },
+ {
+  "ext_id": "585",
+  "name": "ObmenoFF",
+  "slug": "obmenoff",
+  "domain": "obmenoff.cc"
+ },
+ {
+  "ext_id": "761",
+  "name": "FlashObmen",
+  "slug": "flashobmen",
+  "domain": "en.flashobmen.io"
+ },
+ {
+  "ext_id": "858",
+  "name": "FixedFloat",
+  "slug": "fixedfloat",
+  "domain": "ff.io"
+ },
+ {
+  "ext_id": "1071",
+  "name": "CoinDrop",
+  "slug": "coindrop",
+  "domain": "coindrop.trade"
+ },
+ {
+  "ext_id": "716",
+  "name": "Bitok777",
+  "slug": "bitok777",
+  "domain": "bitok777.net"
+ },
+ {
+  "ext_id": "473",
+  "name": "ImExchanger",
+  "slug": "imexchanger",
+  "domain": "imexchanger.pro"
+ },
+ {
+  "ext_id": "1154",
+  "name": "111Obmen",
+  "slug": "111obmen",
+  "domain": "111obmen.com"
+ },
+ {
+  "ext_id": "1263",
+  "name": "ShapeBTC",
+  "slug": "shapebtc",
+  "domain": "shapebtc.com"
+ },
+ {
+  "ext_id": "405",
+  "name": "OpenChange",
+  "slug": "openchange",
+  "domain": "openchange.is"
+ },
+ {
+  "ext_id": "1170",
+  "name": "Monease",
+  "slug": "monease",
+  "domain": "monease.net"
+ },
+ {
+  "ext_id": "1167",
+  "name": "Changee",
+  "slug": "changee",
+  "domain": "changee.com"
+ },
+ {
+  "ext_id": "714",
+  "name": "Top-Exchange",
+  "slug": "top-exchange",
+  "domain": "en.top-exchange.com"
+ },
+ {
+  "ext_id": "944",
+  "name": "EExchanger",
+  "slug": "eexchanger",
+  "domain": "eexchanger.co"
+ },
+ {
+  "ext_id": "1328",
+  "name": "Ant",
+  "slug": "ant",
+  "domain": "ant.exchange"
+ },
+ {
+  "ext_id": "942",
+  "name": "ExHub",
+  "slug": "exhub",
+  "domain": "exhub.io"
+ },
+ {
+  "ext_id": "790",
+  "name": "2rbina",
+  "slug": "2rbina",
+  "domain": "2rbina.net"
+ },
+ {
+  "ext_id": "921",
+  "name": "Satoshi",
+  "slug": "satoshi",
+  "domain": "satoshi.cx"
+ },
+ {
+  "ext_id": "1240",
+  "name": "Bitmore",
+  "slug": "bitmore",
+  "domain": "bitmore.io"
+ },
+ {
+  "ext_id": "1275",
+  "name": "Strela",
+  "slug": "strl-x-chng",
+  "domain": "strl-x-chng.com"
+ },
+ {
+  "ext_id": "223",
+  "name": "MultiVal",
+  "slug": "multival",
+  "domain": "multival.is"
+ },
+ {
+  "ext_id": "702",
+  "name": "Papa-Change",
+  "slug": "papa-change",
+  "domain": "en.papa-change.biz"
+ },
+ {
+  "ext_id": "609",
+  "name": "ObmenMoney",
+  "slug": "obmenmoney",
+  "domain": "obmen.money"
+ },
+ {
+  "ext_id": "1068",
+  "name": "Paynote",
+  "slug": "paynote",
+  "domain": "paynote.eu"
+ },
+ {
+  "ext_id": "1252",
+  "name": "CryptoVortex",
+  "slug": "cryptovortex",
+  "domain": "cryptovortex.pro"
+ },
+ {
+  "ext_id": "652",
+  "name": "LasloBit",
+  "slug": "laslobit",
+  "domain": "laslobit.cc"
+ },
+ {
+  "ext_id": "981",
+  "name": "WMChanger",
+  "slug": "wmchanger",
+  "domain": "wmchanger.net"
+ },
+ {
+  "ext_id": "1056",
+  "name": "First-BTC",
+  "slug": "first-btc",
+  "domain": "first-btc.io"
+ },
+ {
+  "ext_id": "1365",
+  "name": "Crypto007",
+  "slug": "crypto007",
+  "domain": "crypto007.net"
+ },
+ {
+  "ext_id": "1058",
+  "name": "EasyBit",
+  "slug": "easybit",
+  "domain": "easybit.com"
+ },
+ {
+  "ext_id": "1122",
+  "name": "CoinTok",
+  "slug": "cointok",
+  "domain": "cointok.net"
+ },
+ {
+  "ext_id": "51",
+  "name": "ExchangeX",
+  "slug": "exchangex",
+  "domain": "exchangex.biz"
+ },
+ {
+  "ext_id": "1220",
+  "name": "GoExme",
+  "slug": "goexme",
+  "domain": "goexme.io"
+ },
+ {
+  "ext_id": "626",
+  "name": "Best-Obmen",
+  "slug": "best-obmen",
+  "domain": "best-obmen.io"
+ },
+ {
+  "ext_id": "239",
+  "name": "E-Scrooge",
+  "slug": "e-scrooge",
+  "domain": "e-scrooge.is"
+ },
+ {
+  "ext_id": "1250",
+  "name": "CryptoChicken",
+  "slug": "cryptochicken",
+  "domain": "crypto-chicken.co"
+ },
+ {
+  "ext_id": "157",
+  "name": "W-Box",
+  "slug": "w-box",
+  "domain": "w-box.io"
+ },
+ {
+  "ext_id": "1004",
+  "name": "ExWm",
+  "slug": "exwm",
+  "domain": "exwm.cc"
+ },
+ {
+  "ext_id": "1318",
+  "name": "SecureShift",
+  "slug": "secureshift",
+  "domain": "secureshift.io"
+ },
+ {
+  "ext_id": "1175",
+  "name": "Dvizh",
+  "slug": "dvizh",
+  "domain": "dvizh.com"
+ },
+ {
+  "ext_id": "1271",
+  "name": "Paynoom",
+  "slug": "paynoom",
+  "domain": "paynoom.com"
+ },
+ {
+  "ext_id": "1139",
+  "name": "PoTeme",
+  "slug": "poteme",
+  "domain": "poteme.com"
+ },
+ {
+  "ext_id": "362",
+  "name": "D-Obmen",
+  "slug": "d-obmen",
+  "domain": "d-obmen.cc"
+ },
+ {
+  "ext_id": "1086",
+  "name": "ExchangeForMe",
+  "slug": "exchangeforme",
+  "domain": "exchangefor.me"
+ },
+ {
+  "ext_id": "1294",
+  "name": "Swappix",
+  "slug": "swappix",
+  "domain": "swappix.io"
+ },
+ {
+  "ext_id": "614",
+  "name": "El-Change",
+  "slug": "el-change",
+  "domain": "en.el-change.me"
+ },
+ {
+  "ext_id": "984",
+  "name": "Cash-Bit",
+  "slug": "cash-bit",
+  "domain": "cash-bit.com"
+ },
+ {
+  "ext_id": "1319",
+  "name": "DualCoin",
+  "slug": "dualcoin",
+  "domain": "dualcoin.io"
+ },
+ {
+  "ext_id": "1229",
+  "name": "Crypto-Trans",
+  "slug": "crypto-trans",
+  "domain": "crypto-trans.com"
+ },
+ {
+  "ext_id": "955",
+  "name": "AlfaBit",
+  "slug": "alfabit",
+  "domain": "alfabit.org"
+ },
+ {
+  "ext_id": "382",
+  "name": "City-Exchange",
+  "slug": "city-exchange",
+  "domain": "city-exchange.io"
+ },
+ {
+  "ext_id": "396",
+  "name": "PayExchanger",
+  "slug": "payexchanger",
+  "domain": "payexchanger.com"
+ },
+ {
+  "ext_id": "707",
+  "name": "CyberBTC",
+  "slug": "cyberbtc",
+  "domain": "cyberbtc.com"
+ },
+ {
+  "ext_id": "1196",
+  "name": "EpiChange",
+  "slug": "epichange",
+  "domain": "epichange.online"
+ },
+ {
+  "ext_id": "1256",
+  "name": "AppBit",
+  "slug": "appbit",
+  "domain": "appbit.net"
+ },
+ {
+  "ext_id": "1035",
+  "name": "CryptoXchange",
+  "slug": "cryptoxchange",
+  "domain": "cryptoxchange.cc"
+ },
+ {
+  "ext_id": "472",
+  "name": "Changer4u",
+  "slug": "changer4u",
+  "domain": "changer4u.com"
+ },
+ {
+  "ext_id": "1386",
+  "name": "MoonLight",
+  "slug": "moonlight",
+  "domain": "moonlightexchanger.com"
+ },
+ {
+  "ext_id": "1289",
+  "name": "GeekChange",
+  "slug": "geekchange",
+  "domain": "geekchange.com"
+ },
+ {
+  "ext_id": "622",
+  "name": "ProstovCash",
+  "slug": "prostovcash",
+  "domain": "prostovcash.com"
+ },
+ {
+  "ext_id": "1248",
+  "name": "KryptoSwap",
+  "slug": "kryptoswap",
+  "domain": "kryptoswap.exchange"
+ },
+ {
+  "ext_id": "1019",
+  "name": "001K",
+  "slug": "001k",
+  "domain": "001k.exchange"
+ },
+ {
+  "ext_id": "1041",
+  "name": "AnyExchange",
+  "slug": "anyexchange",
+  "domain": "anyexchange.best"
+ },
+ {
+  "ext_id": "1282",
+  "name": "Kupitman",
+  "slug": "kupitman",
+  "domain": "kupitman.pro"
+ },
+ {
+  "ext_id": "421",
+  "name": "Receive-Money",
+  "slug": "receive-money",
+  "domain": "receive-money.biz"
+ },
+ {
+  "ext_id": "688",
+  "name": "ExchangeExpress",
+  "slug": "exchangeexpress",
+  "domain": "exchange.express"
+ },
+ {
+  "ext_id": "1160",
+  "name": "DigiChanger",
+  "slug": "digichanger",
+  "domain": "digichanger.pro"
+ },
+ {
+  "ext_id": "387",
+  "name": "365Cash",
+  "slug": "365cash",
+  "domain": "365cash.co"
+ },
+ {
+  "ext_id": "1176",
+  "name": "CashFlow",
+  "slug": "cashflow",
+  "domain": "cashflow.best"
+ },
+ {
+  "ext_id": "1006",
+  "name": "Sova",
+  "slug": "sova",
+  "domain": "sova.gg"
+ },
+ {
+  "ext_id": "530",
+  "name": "Obmen24",
+  "slug": "obmen24com",
+  "domain": "xn--24-9kcq8ahd.com"
+ },
+ {
+  "ext_id": "969",
+  "name": "4Money",
+  "slug": "4money",
+  "domain": "4money.me"
+ },
+ {
+  "ext_id": "881",
+  "name": "JetMonet",
+  "slug": "jetmonet",
+  "domain": "jetmonet.com"
+ },
+ {
+  "ext_id": "633",
+  "name": "YChanger",
+  "slug": "ychanger",
+  "domain": "ychangers.com"
+ },
+ {
+  "ext_id": "757",
+  "name": "ChangeNow",
+  "slug": "changenow",
+  "domain": "changenow.io"
+ },
+ {
+  "ext_id": "1074",
+  "name": "CoinBlinker",
+  "slug": "coinblinker",
+  "domain": "coinblinker.me"
+ },
+ {
+  "ext_id": "1124",
+  "name": "1654Exchange",
+  "slug": "1654exchange",
+  "domain": "1654.exchange"
+ },
+ {
+  "ext_id": "1410",
+  "name": "BitcoinBox",
+  "slug": "bitcoinbox",
+  "domain": "bitcoinbox.io"
+ },
+ {
+  "ext_id": "1378",
+  "name": "Payex24",
+  "slug": "payex24",
+  "domain": "payex24.com"
+ },
+ {
+  "ext_id": "534",
+  "name": "FastEx",
+  "slug": "fastex",
+  "domain": "fastex.biz"
+ },
+ {
+  "ext_id": "817",
+  "name": "Enter-Change",
+  "slug": "enter-change",
+  "domain": "enter-change.com"
+ },
+ {
+  "ext_id": "874",
+  "name": "ChangeHero",
+  "slug": "changehero",
+  "domain": "changehero.io"
+ },
+ {
+  "ext_id": "1158",
+  "name": "TradeToCash",
+  "slug": "tradetocash",
+  "domain": "tradeto.cash"
+ },
+ {
+  "ext_id": "788",
+  "name": "FlyMoney",
+  "slug": "flymoney",
+  "domain": "flymoney.biz"
+ },
+ {
+  "ext_id": "740",
+  "name": "Buy-Bitcoin",
+  "slug": "buy-bitcoin",
+  "domain": "buy-bitcoin.io"
+ },
+ {
+  "ext_id": "1069",
+  "name": "Clean-Exchange",
+  "slug": "clean-exchange",
+  "domain": "clean-exchange.com"
+ },
+ {
+  "ext_id": "1283",
+  "name": "Fiatex",
+  "slug": "fiatex",
+  "domain": "fiatex.pro"
+ },
+ {
+  "ext_id": "522",
+  "name": "Kassa",
+  "slug": "kassa",
+  "domain": "kassa.is"
+ },
+ {
+  "ext_id": "975",
+  "name": "PremierCash",
+  "slug": "premiercash",
+  "domain": "premier.cash"
+ },
+ {
+  "ext_id": "517",
+  "name": "BaksMan",
+  "slug": "baksman",
+  "domain": "baksmany.net"
+ },
+ {
+  "ext_id": "417",
+  "name": "24PayBank",
+  "slug": "24paybank",
+  "domain": "24paybanks.me"
+ },
+ {
+  "ext_id": "1089",
+  "name": "AllTop",
+  "slug": "alltop",
+  "domain": "alltop.io"
+ },
+ {
+  "ext_id": "1293",
+  "name": "OkPays",
+  "slug": "okpays",
+  "domain": "okpays.com"
+ },
+ {
+  "ext_id": "1050",
+  "name": "Kursov24",
+  "slug": "kursov24",
+  "domain": "kursov24.org"
+ },
+ {
+  "ext_id": "1119",
+  "name": "Crypto-Dom",
+  "slug": "crypto-dom",
+  "domain": "crypto-dom.com"
+ },
+ {
+  "ext_id": "1040",
+  "name": "HiExchange",
+  "slug": "hiexchange",
+  "domain": "hi.exchange"
+ },
+ {
+  "ext_id": "1387",
+  "name": "TheChange",
+  "slug": "thechange",
+  "domain": "thechange.ltd"
+ },
+ {
+  "ext_id": "1276",
+  "name": "Brabus",
+  "slug": "brabus",
+  "domain": "brabus.exchange"
+ },
+ {
+  "ext_id": "840",
+  "name": "YoChange",
+  "slug": "yochange",
+  "domain": "yochange.com"
+ },
+ {
+  "ext_id": "943",
+  "name": "TopCash",
+  "slug": "topcash",
+  "domain": "topcash24.me"
+ },
+ {
+  "ext_id": "1039",
+  "name": "Xenex",
+  "slug": "xenex",
+  "domain": "xenex.site"
+ },
+ {
+  "ext_id": "607",
+  "name": "60sek",
+  "slug": "60sek",
+  "domain": "60sek.net"
+ },
+ {
+  "ext_id": "438",
+  "name": "WestChange",
+  "slug": "westchange",
+  "domain": "westchange.top"
+ },
+ {
+  "ext_id": "1340",
+  "name": "Go-Go",
+  "slug": "go-go",
+  "domain": "go-go.exchange"
+ },
+ {
+  "ext_id": "1023",
+  "name": "UnioChange",
+  "slug": "uniochange",
+  "domain": "uniochange.com"
+ },
+ {
+  "ext_id": "1005",
+  "name": "EezyCash",
+  "slug": "eezycash",
+  "domain": "eezy.cash"
+ },
+ {
+  "ext_id": "738",
+  "name": "HASchange",
+  "slug": "haschange",
+  "domain": "haschange.com"
+ },
+ {
+  "ext_id": "531",
+  "name": "FastWM",
+  "slug": "fastwm",
+  "domain": "fastwm.biz"
+ },
+ {
+  "ext_id": "764",
+  "name": "NicexChanger",
+  "slug": "nicexchanger",
+  "domain": "nicexchanger.cc"
+ },
+ {
+  "ext_id": "948",
+  "name": "AbcObmen",
+  "slug": "abcobmen",
+  "domain": null
+ },
+ {
+  "ext_id": "184",
+  "name": "Xchange",
+  "slug": "xchange",
+  "domain": "xchange.pub"
+ },
+ {
+  "ext_id": "939",
+  "name": "EuroBit",
+  "slug": "eurobit",
+  "domain": "eurobit.cc"
+ },
+ {
+  "ext_id": "1399",
+  "name": "Wirebit",
+  "slug": "wirebit",
+  "domain": "wirebit.net"
+ },
+ {
+  "ext_id": "682",
+  "name": "ExWallets",
+  "slug": "exwallets",
+  "domain": "exwallets.com"
+ },
+ {
+  "ext_id": "960",
+  "name": "Crybex",
+  "slug": "crybex",
+  "domain": "crybex.com"
+ },
+ {
+  "ext_id": "625",
+  "name": "PayGet",
+  "slug": "payget",
+  "domain": "payget.pro"
+ },
+ {
+  "ext_id": "661",
+  "name": "Ferma",
+  "slug": "ferma",
+  "domain": "ferma.cc"
+ },
+ {
+  "ext_id": "1325",
+  "name": "SwapGate",
+  "slug": "swapgate",
+  "domain": null
+ },
+ {
+  "ext_id": "1189",
+  "name": "BelkaPay",
+  "slug": "belkapay",
+  "domain": "belkapay.cc"
+ },
+ {
+  "ext_id": "1078",
+  "name": "AtPayz",
+  "slug": "atpayz",
+  "domain": "atpayz.com"
+ },
+ {
+  "ext_id": "1165",
+  "name": "Metka",
+  "slug": "metka",
+  "domain": "metka.cc"
+ },
+ {
+  "ext_id": "1166",
+  "name": "Bit100k",
+  "slug": "bit100k",
+  "domain": "bit100k.com"
+ },
+ {
+  "ext_id": "1149",
+  "name": "BuhtaObmena",
+  "slug": "buhtaobmena",
+  "domain": "buhtaobmena.me"
+ },
+ {
+  "ext_id": "539",
+  "name": "NewLine",
+  "slug": "newline",
+  "domain": null
+ },
+ {
+  "ext_id": "1414",
+  "name": "Xgram",
+  "slug": "xgram",
+  "domain": "xgram.io"
+ },
+ {
+  "ext_id": "274",
+  "name": "MultiXchange",
+  "slug": "multixchange",
+  "domain": "multixchange.net"
+ },
+ {
+  "ext_id": "1394",
+  "name": "InkognitoSwap",
+  "slug": "inkognitoswap",
+  "domain": "inkognitoswap.com"
+ },
+ {
+  "ext_id": "1295",
+  "name": "AuraLegal",
+  "slug": "auralegal",
+  "domain": "aura.legal"
+ },
+ {
+  "ext_id": "659",
+  "name": "1-Online",
+  "slug": "1-online",
+  "domain": "1-online.ru"
+ },
+ {
+  "ext_id": "544",
+  "name": "Bankcomat",
+  "slug": "bankcomat",
+  "domain": "bankcomat.me"
+ },
+ {
+  "ext_id": "1156",
+  "name": "LovanPay",
+  "slug": "lovanpay",
+  "domain": "lovanpay.org"
+ },
+ {
+  "ext_id": "1155",
+  "name": "ECashExpert",
+  "slug": "ecashexpert",
+  "domain": "ecash.expert"
+ },
+ {
+  "ext_id": "1313",
+  "name": "NovaChange",
+  "slug": "novachange",
+  "domain": "novachange.cc"
+ },
+ {
+  "ext_id": "1349",
+  "name": "SwapsCenter",
+  "slug": "swapscenter",
+  "domain": "swapscenter.exchange"
+ },
+ {
+  "ext_id": "816",
+  "name": "KZ007",
+  "slug": "kz007",
+  "domain": "kz007.org"
+ },
+ {
+  "ext_id": "1016",
+  "name": "Bankir",
+  "slug": "bankir",
+  "domain": "bankir.io"
+ },
+ {
+  "ext_id": "899",
+  "name": "CoinShop24",
+  "slug": "coinshop24",
+  "domain": "coinshop24.org"
+ },
+ {
+  "ext_id": "279",
+  "name": "MChanger",
+  "slug": "mchanger",
+  "domain": "mchanger.cc"
+ },
+ {
+  "ext_id": "1073",
+  "name": "IziBTC",
+  "slug": "izibtc",
+  "domain": "izibtc.net"
+ },
+ {
+  "ext_id": "1370",
+  "name": "Exdex",
+  "slug": "exdex",
+  "domain": "exdex.xyz"
+ },
+ {
+  "ext_id": "1301",
+  "name": "BitFlaming",
+  "slug": "bitflaming",
+  "domain": "bitflaming.com"
+ },
+ {
+  "ext_id": "1123",
+  "name": "Crypocto",
+  "slug": "crypocto",
+  "domain": "crypocto.com"
+ },
+ {
+  "ext_id": "540",
+  "name": "CryptoPay24",
+  "slug": "cryptopay24",
+  "domain": "cryptopay24.com"
+ },
+ {
+  "ext_id": "1222",
+  "name": "VN-Exchange",
+  "slug": "vn-exchange",
+  "domain": "vn-exchange.com"
+ },
+ {
+  "ext_id": "177",
+  "name": "Alfacash",
+  "slug": "alfacash",
+  "domain": "alfa.cash"
+ },
+ {
+  "ext_id": "848",
+  "name": "SwapCoin",
+  "slug": "swapcoin",
+  "domain": "swapcoin.cc"
+ },
+ {
+  "ext_id": "488",
+  "name": "FastChange",
+  "slug": "fastchange",
+  "domain": "fastchange.me"
+ },
+ {
+  "ext_id": "397",
+  "name": "AllCash",
+  "slug": "allcash",
+  "domain": "all.cash"
+ },
+ {
+  "ext_id": "772",
+  "name": "CoinPayMaster",
+  "slug": "coinpaymaster",
+  "domain": "coinpaymaster.com"
+ },
+ {
+  "ext_id": "346",
+  "name": "UltraChange",
+  "slug": "ultrachange",
+  "domain": "ultrachange.biz"
+ },
+ {
+  "ext_id": "1202",
+  "name": "LemonchikCash",
+  "slug": "lemonchikcash",
+  "domain": "lemonchik.cash"
+ },
+ {
+  "ext_id": "273",
+  "name": "ArmChange",
+  "slug": "armchange",
+  "domain": "armchange.ru"
+ },
+ {
+  "ext_id": "963",
+  "name": "Global-Ex",
+  "slug": "global-ex",
+  "domain": "global-ex.cc"
+ },
+ {
+  "ext_id": "1008",
+  "name": "BroExchange",
+  "slug": "broexchange",
+  "domain": "bro.exchange"
+ },
+ {
+  "ext_id": "619",
+  "name": "LeoExchanger",
+  "slug": "leoexchanger",
+  "domain": "leoexchanger.net"
+ },
+ {
+  "ext_id": "1186",
+  "name": "Nadex",
+  "slug": "nadex",
+  "domain": "nadex.io"
+ },
+ {
+  "ext_id": "989",
+  "name": "CoinsBlack",
+  "slug": "coinsblack",
+  "domain": "coins.black"
+ },
+ {
+  "ext_id": "827",
+  "name": "Crypster",
+  "slug": "crypster",
+  "domain": "crypster.net"
+ },
+ {
+  "ext_id": "855",
+  "name": "CoinStart",
+  "slug": "coinstart",
+  "domain": "coinstart.cc"
+ },
+ {
+  "ext_id": "615",
+  "name": "Pocket-Exchange",
+  "slug": "pocket-exchange",
+  "domain": "pocket-exchange.com"
+ },
+ {
+  "ext_id": "369",
+  "name": "X-Pay",
+  "slug": "x-pay",
+  "domain": "x-pay.com"
+ },
+ {
+  "ext_id": "1144",
+  "name": "LetsChange",
+  "slug": "letschange",
+  "domain": "letschange.biz"
+ },
+ {
+  "ext_id": "992",
+  "name": "OneMoment",
+  "slug": "onemoment",
+  "domain": "onemoment.cc"
+ },
+ {
+  "ext_id": "1226",
+  "name": "Buycoin",
+  "slug": "buycoin",
+  "domain": "buycoin.online"
+ },
+ {
+  "ext_id": "1030",
+  "name": "PocketBank",
+  "slug": "pocketbank",
+  "domain": "pocketbank.net"
+ },
+ {
+  "ext_id": "1225",
+  "name": "EasySwap",
+  "slug": "easyswap",
+  "domain": "easyswap.me"
+ },
+ {
+  "ext_id": "809",
+  "name": "XbitMoney",
+  "slug": "xbitmoney",
+  "domain": "xbit.money"
+ },
+ {
+  "ext_id": "1379",
+  "name": "SecuredChange",
+  "slug": "securedchange",
+  "domain": "securedchange.com"
+ },
+ {
+  "ext_id": "929",
+  "name": "RoyalCash",
+  "slug": "royalcash",
+  "domain": "royalcash.cc"
+ },
+ {
+  "ext_id": "1194",
+  "name": "FloatChange",
+  "slug": "floatchange",
+  "domain": "floatchange.com"
+ },
+ {
+  "ext_id": "785",
+  "name": "PayMarket",
+  "slug": "paymarket",
+  "domain": "paymarket.cc"
+ },
+ {
+  "ext_id": "1132",
+  "name": "CryptoGin",
+  "slug": "cryptogin",
+  "domain": "cryptogin.cc"
+ },
+ {
+  "ext_id": "930",
+  "name": "Crypto-Store",
+  "slug": "crypto-store",
+  "domain": "crypto-store.cc"
+ },
+ {
+  "ext_id": "460",
+  "name": "Lionex",
+  "slug": "lionex",
+  "domain": "lionex.net"
+ },
+ {
+  "ext_id": "1424",
+  "name": "Revbit",
+  "slug": "revbit",
+  "domain": "revbit.net"
+ },
+ {
+  "ext_id": "1223",
+  "name": "BitcoinObmennik",
+  "slug": "bitcoinobmennik",
+  "domain": "bitcoinobmennik.com"
+ },
+ {
+  "ext_id": "1168",
+  "name": "CatChange",
+  "slug": "catchange",
+  "domain": "1.catchange.org"
+ },
+ {
+  "ext_id": "469",
+  "name": "MasterChange",
+  "slug": "masterchange",
+  "domain": "master-change.io"
+ },
+ {
+  "ext_id": "1087",
+  "name": "CryptoKarma",
+  "slug": "cryptokarma",
+  "domain": "cryptokarma.pro"
+ },
+ {
+  "ext_id": "1264",
+  "name": "BulldogExchange",
+  "slug": "bulldogexchange",
+  "domain": "bulldog.exchange"
+ },
+ {
+  "ext_id": "1",
+  "name": "SuperChange",
+  "slug": "superchange",
+  "domain": "superchange.is"
+ },
+ {
+  "ext_id": "1403",
+  "name": "TheGrail",
+  "slug": "thegrail",
+  "domain": "thegrail.exchange"
+ },
+ {
+  "ext_id": "1380",
+  "name": "UmaPay",
+  "slug": "umapay",
+  "domain": "umapay.online"
+ },
+ {
+  "ext_id": "830",
+  "name": "EliteObmen",
+  "slug": "eliteobmen",
+  "domain": "eliteobmen.com"
+ },
+ {
+  "ext_id": "1381",
+  "name": "ChangeBTC",
+  "slug": "changebtc",
+  "domain": "changebtc.co"
+ },
+ {
+  "ext_id": "808",
+  "name": "ChangeCoins",
+  "slug": "changecoins",
+  "domain": "changecoins.io"
+ },
+ {
+  "ext_id": "1198",
+  "name": "CryptoSwap365",
+  "slug": "cryptoswap365",
+  "domain": "cryptoswap365.com"
+ },
+ {
+  "ext_id": "1033",
+  "name": "CosmoChanger",
+  "slug": "cosmochanger",
+  "domain": "cosmochanger.cc"
+ },
+ {
+  "ext_id": "1299",
+  "name": "DeltaChanger",
+  "slug": "deltachanger",
+  "domain": "deltachanger.com"
+ },
+ {
+  "ext_id": "1377",
+  "name": "MasonEx",
+  "slug": "mason-ex",
+  "domain": "mason-ex.com"
+ },
+ {
+  "ext_id": "1014",
+  "name": "Coin24",
+  "slug": "coin24",
+  "domain": "coin24.io"
+ },
+ {
+  "ext_id": "578",
+  "name": "AtChange",
+  "slug": "atchange",
+  "domain": "atchange.net"
+ },
+ {
+  "ext_id": "1439",
+  "name": "ChinaitechPay",
+  "slug": "chinaitechpay",
+  "domain": "chinaitechpay.com"
+ },
+ {
+  "ext_id": "471",
+  "name": "ChBy",
+  "slug": "chby",
+  "domain": "chby.io"
+ },
+ {
+  "ext_id": "871",
+  "name": "BitokAi",
+  "slug": "bitokai",
+  "domain": "bitok.ai"
+ },
+ {
+  "ext_id": "1055",
+  "name": "Finex24",
+  "slug": "finex24",
+  "domain": "best.finex24.exchange"
+ },
+ {
+  "ext_id": "1205",
+  "name": "CoinFusionOne",
+  "slug": "coinfusion",
+  "domain": "coinfusion.one"
+ },
+ {
+  "ext_id": "1408",
+  "name": "SafuExchange",
+  "slug": "safuexchange",
+  "domain": "safuexchange.cc"
+ },
+ {
+  "ext_id": "1221",
+  "name": "Coine-Market",
+  "slug": "coine-market",
+  "domain": "coine-market.com"
+ },
+ {
+  "ext_id": "1091",
+  "name": "NordChange",
+  "slug": "nordchange",
+  "domain": "nordchange.net"
+ },
+ {
+  "ext_id": "865",
+  "name": "Bixter",
+  "slug": "bixter",
+  "domain": "bixter.org"
+ },
+ {
+  "ext_id": "925",
+  "name": "Sunduk",
+  "slug": "sunduk",
+  "domain": "sunduk.su"
+ },
+ {
+  "ext_id": "1101",
+  "name": "GrumBot",
+  "slug": "grumbot",
+  "domain": "grumbot.net"
+ },
+ {
+  "ext_id": "1191",
+  "name": "SendNow",
+  "slug": "sendnow",
+  "domain": "sendnow.money"
+ },
+ {
+  "ext_id": "1337",
+  "name": "More-Ex",
+  "slug": "more-ex",
+  "domain": "more-ex.com"
+ },
+ {
+  "ext_id": "999",
+  "name": "LetsPay",
+  "slug": "letspay",
+  "domain": "letspay.me"
+ },
+ {
+  "ext_id": "1304",
+  "name": "CashRocket",
+  "slug": "cashrocket",
+  "domain": "cashrocket.online"
+ },
+ {
+  "ext_id": "1235",
+  "name": "FinchPay",
+  "slug": "finchpay",
+  "domain": "widget.finchpay.io"
+ },
+ {
+  "ext_id": "1444",
+  "name": "CyberCrypta",
+  "slug": "cybercrypta",
+  "domain": "cybercrypta.com"
+ },
+ {
+  "ext_id": "251",
+  "name": "24Obmin",
+  "slug": "24obmin",
+  "domain": "24obmin.com"
+ },
+ {
+  "ext_id": "672",
+  "name": "99Francs",
+  "slug": "99francs",
+  "domain": "99francs.pro"
+ },
+ {
+  "ext_id": "1090",
+  "name": "AjuBit",
+  "slug": "ajubit",
+  "domain": "ajubit.com"
+ },
+ {
+  "ext_id": "1178",
+  "name": "Banka",
+  "slug": "bankaexchange",
+  "domain": "banka.exchange"
+ },
+ {
+  "ext_id": "1163",
+  "name": "JarvisExchange",
+  "slug": "jarvisexchange",
+  "domain": "jarvisexchange.com"
+ },
+ {
+  "ext_id": "976",
+  "name": "ChangeProject",
+  "slug": "changeproject",
+  "domain": "changeproject.best"
+ },
+ {
+  "ext_id": "1212",
+  "name": "Fury-Exchange",
+  "slug": "fury-exchange",
+  "domain": "fury-exchange.com"
+ },
+ {
+  "ext_id": "974",
+  "name": "BestKurs24",
+  "slug": "bestkurs24",
+  "domain": "bestkurs24.com"
+ },
+ {
+  "ext_id": "985",
+  "name": "Tuco",
+  "slug": "tuco",
+  "domain": "tuco.co"
+ },
+ {
+  "ext_id": "1459",
+  "name": "BizOn",
+  "slug": "bizon",
+  "domain": "exchange-bizon.com"
+ },
+ {
+  "ext_id": "1183",
+  "name": "Crypcie",
+  "slug": "crypcie",
+  "domain": "crypcie.com"
+ },
+ {
+  "ext_id": "1203",
+  "name": "WeDoExchange",
+  "slug": "wedoexchange",
+  "domain": "wedo.exchange"
+ },
+ {
+  "ext_id": "1065",
+  "name": "X-Obmen",
+  "slug": "x-obmen",
+  "domain": null
+ },
+ {
+  "ext_id": "1477",
+  "name": "NextBit",
+  "slug": "nextbit",
+  "domain": "nextbit.me"
+ },
+ {
+  "ext_id": "896",
+  "name": "CoinChanger",
+  "slug": "coinchanger",
+  "domain": "coinchanger.in"
+ },
+ {
+  "ext_id": "1227",
+  "name": "ObmenOne",
+  "slug": "obmenone",
+  "domain": "obmen.one"
+ },
+ {
+  "ext_id": "1100",
+  "name": "CoolCoin",
+  "slug": "coolcoin",
+  "domain": "coolcoin.best"
+ },
+ {
+  "ext_id": "1131",
+  "name": "Arbuz",
+  "slug": "arbuz",
+  "domain": "arbuz.io"
+ },
+ {
+  "ext_id": "1211",
+  "name": "Cryptohub",
+  "slug": "cryptohub",
+  "domain": "cryptohub.llc"
+ },
+ {
+  "ext_id": "1162",
+  "name": "Crystal-Trade",
+  "slug": "crystal-trade",
+  "domain": "crystal-trade.org"
+ },
+ {
+  "ext_id": "718",
+  "name": "Platov",
+  "slug": "platov",
+  "domain": "platov.co"
+ },
+ {
+  "ext_id": "1206",
+  "name": "Sellver",
+  "slug": "sellver",
+  "domain": "sellver.com"
+ },
+ {
+  "ext_id": "447",
+  "name": "SpbWMCasher",
+  "slug": "spbwmcasher",
+  "domain": "spbwmcasher.ru"
+ },
+ {
+  "ext_id": "913",
+  "name": "Quantex",
+  "slug": "quantex",
+  "domain": "quantex.pro"
+ },
+ {
+  "ext_id": "608",
+  "name": "GeeExchange",
+  "slug": "geeexchange",
+  "domain": "geeexchange.com"
+ },
+ {
+  "ext_id": "958",
+  "name": "24Zone",
+  "slug": "24zone",
+  "domain": "24.zone"
+ },
+ {
+  "ext_id": "635",
+  "name": "Staff-Obmen",
+  "slug": "staff-obmen",
+  "domain": "staffobmen.com"
+ },
+ {
+  "ext_id": "1209",
+  "name": "Cerber",
+  "slug": "cerber",
+  "domain": "1.cerber.pro"
+ },
+ {
+  "ext_id": "1234",
+  "name": "MoneyMate",
+  "slug": "moneymate",
+  "domain": "moneymate.best"
+ },
+ {
+  "ext_id": "1121",
+  "name": "LetsExchange",
+  "slug": "letsexchange",
+  "domain": "letsexchange.io"
+ },
+ {
+  "ext_id": "1237",
+  "name": "CoinClick",
+  "slug": "coinclick",
+  "domain": null
+ },
+ {
+  "ext_id": "1049",
+  "name": "BlaBlaMoney",
+  "slug": "blablamoney",
+  "domain": "blablamoney.net"
+ },
+ {
+  "ext_id": "1195",
+  "name": "AltinBit",
+  "slug": "altinbit",
+  "domain": "altinbit.com"
+ },
+ {
+  "ext_id": "1011",
+  "name": "IChangeOne",
+  "slug": "ichangeone",
+  "domain": "ichange.one"
+ },
+ {
+  "ext_id": "1185",
+  "name": "Expa24",
+  "slug": "expa24",
+  "domain": "expa24.com"
+ },
+ {
+  "ext_id": "1038",
+  "name": "Obama",
+  "slug": "obama",
+  "domain": "obama.ru"
+ },
+ {
+  "ext_id": "1484",
+  "name": "KeysTop",
+  "slug": "keystop",
+  "domain": null
+ },
+ {
+  "ext_id": "1406",
+  "name": "Swap-Line",
+  "slug": "swap-line",
+  "domain": "swap-line.com"
+ },
+ {
+  "ext_id": "1028",
+  "name": "BTCSale",
+  "slug": "btcsale",
+  "domain": "1.btcsale.pro"
+ },
+ {
+  "ext_id": "766",
+  "name": "UniCash",
+  "slug": "unicash",
+  "domain": "unicash.pro"
+ },
+ {
+  "ext_id": "1214",
+  "name": "Cryptofiat",
+  "slug": "cryptofiat",
+  "domain": "cryptofiat.finance"
+ },
+ {
+  "ext_id": "1066",
+  "name": "1Million",
+  "slug": "1million",
+  "domain": "1million.exchange"
+ },
+ {
+  "ext_id": "1120",
+  "name": "ExWhite",
+  "slug": "exwhite",
+  "domain": "exwhite.io"
+ },
+ {
+  "ext_id": "1277",
+  "name": "Tsunami",
+  "slug": "tsunami",
+  "domain": "tsunami.cash"
+ },
+ {
+  "ext_id": "152",
+  "name": "Vilcov",
+  "slug": "vilcov",
+  "domain": "vilcov.com"
+ },
+ {
+  "ext_id": "987",
+  "name": "Itez",
+  "slug": "itez",
+  "domain": "buy.itez.com"
+ },
+ {
+  "ext_id": "227",
+  "name": "Money-Change",
+  "slug": "money-change",
+  "domain": "money-change.biz"
+ },
+ {
+  "ext_id": "1010",
+  "name": "Coinumm",
+  "slug": "coinumm",
+  "domain": "coinumm.com"
+ },
+ {
+  "ext_id": "1322",
+  "name": "BitKit",
+  "slug": "bitkit",
+  "domain": "bitkit.money"
+ },
+ {
+  "ext_id": "1215",
+  "name": "WayBit",
+  "slug": "waybit",
+  "domain": "waybit.pl"
+ },
+ {
+  "ext_id": "1314",
+  "name": "Mario",
+  "slug": "mario",
+  "domain": "mario.zone"
+ },
+ {
+  "ext_id": "1357",
+  "name": "KingsExchange",
+  "slug": "kingsexchange",
+  "domain": "kingsexchange.global"
+ },
+ {
+  "ext_id": "1238",
+  "name": "PayStore",
+  "slug": "paystore",
+  "domain": "paystore.pro"
+ },
+ {
+  "ext_id": "1436",
+  "name": "Swex",
+  "slug": "swex",
+  "domain": "swex.io"
+ },
+ {
+  "ext_id": "771",
+  "name": "365Exchanger",
+  "slug": "365exchanger",
+  "domain": "365exchanger.com"
+ },
+ {
+  "ext_id": "1376",
+  "name": "LuckyChange",
+  "slug": "luckychange",
+  "domain": "luckychange.net"
+ },
+ {
+  "ext_id": "1338",
+  "name": "ExchangeMafia",
+  "slug": "exchangemafia",
+  "domain": "exchangemafia.com"
+ },
+ {
+  "ext_id": "1236",
+  "name": "Menyala",
+  "slug": "menyala",
+  "domain": "menyala.info"
+ },
+ {
+  "ext_id": "1098",
+  "name": "CashBox",
+  "slug": "cashbox",
+  "domain": "cashbox.exchange"
+ },
+ {
+  "ext_id": "269",
+  "name": "Paspar",
+  "slug": "paspar",
+  "domain": "paspar.net"
+ },
+ {
+  "ext_id": "490",
+  "name": "O-Paxum",
+  "slug": "o-paxum",
+  "domain": "o-paxum.net"
+ },
+ {
+  "ext_id": "561",
+  "name": "BetaTransfer",
+  "slug": "betatransfer",
+  "domain": "betatransfer.org"
+ },
+ {
+  "ext_id": "1443",
+  "name": "Local-Pay",
+  "slug": "local-pay",
+  "domain": "local-pay.com"
+ },
+ {
+  "ext_id": "580",
+  "name": "4ange",
+  "slug": "4ange",
+  "domain": null
+ },
+ {
+  "ext_id": "1467",
+  "name": "Drakkar",
+  "slug": "drakkarexchange",
+  "domain": "drakkar.exchange"
+ },
+ {
+  "ext_id": "1180",
+  "name": "Mitninskii",
+  "slug": "mitninskii",
+  "domain": "mitninskii.online"
+ },
+ {
+  "ext_id": "907",
+  "name": "ObmenAT24",
+  "slug": "obmenat24",
+  "domain": "obmenat24.com"
+ },
+ {
+  "ext_id": "364",
+  "name": "N-Obmen",
+  "slug": "n-obmen",
+  "domain": "n-obmen.net"
+ },
+ {
+  "ext_id": "1187",
+  "name": "eBTCpro",
+  "slug": "ebtcpro",
+  "domain": "ebtc.pro"
+ },
+ {
+  "ext_id": "1278",
+  "name": "WTC-Ex",
+  "slug": "wtc-ex",
+  "domain": "wtc-ex.com"
+ },
+ {
+  "ext_id": "1096",
+  "name": "BTCWorm",
+  "slug": "btcworm",
+  "domain": "btcworm.net"
+ },
+ {
+  "ext_id": "736",
+  "name": "Obmennik-UZ",
+  "slug": "obmennik-uz",
+  "domain": "1obmennik-uz.ru"
+ },
+ {
+  "ext_id": "1116",
+  "name": "ExBit",
+  "slug": "exbit",
+  "domain": "exbit.cc"
+ },
+ {
+  "ext_id": "895",
+  "name": "CryptoBarMen",
+  "slug": "cryptobarmen",
+  "domain": "cryptobar.men"
+ },
+ {
+  "ext_id": "1298",
+  "name": "WswOne",
+  "slug": "wsw",
+  "domain": "wsw.one"
+ },
+ {
+  "ext_id": "90",
+  "name": "Ex-Money",
+  "slug": "ex-money",
+  "domain": "ex-money.net"
+ },
+ {
+  "ext_id": "538",
+  "name": "50Cents",
+  "slug": "50cents",
+  "domain": "50cents.pro"
+ },
+ {
+  "ext_id": "1457",
+  "name": "MrMoney",
+  "slug": "mrmoney",
+  "domain": "mrmoney.cc"
+ },
+ {
+  "ext_id": "1262",
+  "name": "MoneyRoll",
+  "slug": "moneyroll",
+  "domain": "moneyroll.pro"
+ },
+ {
+  "ext_id": "645",
+  "name": "BtcBit",
+  "slug": "btcbit",
+  "domain": "btcbit.net"
+ },
+ {
+  "ext_id": "1402",
+  "name": "Razmen",
+  "slug": "razmen",
+  "domain": "razmen.cc"
+ },
+ {
+  "ext_id": "1418",
+  "name": "BarterHub",
+  "slug": "barterhub",
+  "domain": "barterhub.club"
+ },
+ {
+  "ext_id": "719",
+  "name": "ObmenLite24",
+  "slug": "obmenlite24",
+  "domain": "obmenlite24.ru"
+ },
+ {
+  "ext_id": "967",
+  "name": "CryptoObmen",
+  "slug": "cryptoobmen",
+  "domain": "cryptoobmen.io"
+ },
+ {
+  "ext_id": "341",
+  "name": "WMStream",
+  "slug": "wmstream",
+  "domain": "wmstream.pro"
+ },
+ {
+  "ext_id": "1334",
+  "name": "InsideExchange",
+  "slug": "inside-exchange",
+  "domain": "inside-exchange.com"
+ },
+ {
+  "ext_id": "1366",
+  "name": "ObminMe",
+  "slug": "obmin",
+  "domain": "obmin.me"
+ },
+ {
+  "ext_id": "1228",
+  "name": "Swop",
+  "slug": "swop",
+  "domain": "swop.is"
+ },
+ {
+  "ext_id": "1315",
+  "name": "Pkr2Dollar",
+  "slug": "pkr2dollar",
+  "domain": "global.pkr2dollar.com"
+ },
+ {
+  "ext_id": "1388",
+  "name": "ValutaExchange",
+  "slug": "valuta",
+  "domain": "valuta.in.ua"
+ },
+ {
+  "ext_id": "381",
+  "name": "ObmenAT",
+  "slug": "obmenat",
+  "domain": "obmenat.co"
+ },
+ {
+  "ext_id": "1243",
+  "name": "Aztec-Gold",
+  "slug": "aztec-gold",
+  "domain": "aztec-gold.net"
+ },
+ {
+  "ext_id": "695",
+  "name": "BTC-Obmennik",
+  "slug": "btc-obmennik",
+  "domain": null
+ },
+ {
+  "ext_id": "1103",
+  "name": "CrystalMoney",
+  "slug": "crystalmoney",
+  "domain": "crystalmoney.org"
+ },
+ {
+  "ext_id": "888",
+  "name": "GramBit",
+  "slug": "grambit",
+  "domain": "grambit.biz"
+ },
+ {
+  "ext_id": "1350",
+  "name": "1tab",
+  "slug": "1tab",
+  "domain": "1tab.co"
+ },
+ {
+  "ext_id": "724",
+  "name": "FlashCash",
+  "slug": "flashcash",
+  "domain": "en.flashcash.top"
+ },
+ {
+  "ext_id": "268",
+  "name": "Rapid-Obmen",
+  "slug": "rapid-obmen",
+  "domain": "rapid-obmen.com"
+ },
+ {
+  "ext_id": "1393",
+  "name": "MafinCash",
+  "slug": "mafincash",
+  "domain": "mafincash.com"
+ },
+ {
+  "ext_id": "1245",
+  "name": "CryptoLavka",
+  "slug": "cryptolavka",
+  "domain": "cryptolavka.com"
+ },
+ {
+  "ext_id": "567",
+  "name": "Coin-Bank",
+  "slug": "coin-bank",
+  "domain": null
+ },
+ {
+  "ext_id": "1217",
+  "name": "R2Exchange",
+  "slug": "r2exchange",
+  "domain": "r2.exchange"
+ },
+ {
+  "ext_id": "1273",
+  "name": "BitcoinVN",
+  "slug": "bitcoinvn",
+  "domain": "bitcoinvn.io"
+ },
+ {
+  "ext_id": "839",
+  "name": "MyInvestStory",
+  "slug": "myinveststory",
+  "domain": "myinveststory.com"
+ },
+ {
+  "ext_id": "731",
+  "name": "BigBank",
+  "slug": "bigbank",
+  "domain": "bigbank.top"
+ },
+ {
+  "ext_id": "807",
+  "name": "CryptoBar",
+  "slug": "cryptobar",
+  "domain": "cryptobar.cc"
+ },
+ {
+  "ext_id": "1174",
+  "name": "FreeChange",
+  "slug": "freechange",
+  "domain": "freechange.cc"
+ },
+ {
+  "ext_id": "1320",
+  "name": "Tasty-Changer",
+  "slug": "tasty-changer",
+  "domain": "tasty-changer.com"
+ },
+ {
+  "ext_id": "1305",
+  "name": "TJSpay",
+  "slug": "tjspay",
+  "domain": "tjspay.com"
+ },
+ {
+  "ext_id": "812",
+  "name": "Ex-Bank",
+  "slug": "ex-bank",
+  "domain": "ex-bank.cc"
+ },
+ {
+  "ext_id": "1199",
+  "name": "DoubleSwap",
+  "slug": "doubleswap",
+  "domain": "doubleswap.ru"
+ },
+ {
+  "ext_id": "29",
+  "name": "N-Change",
+  "slug": "n-change",
+  "domain": "n-change.net"
+ },
+ {
+  "ext_id": "902",
+  "name": "BTC-Volga",
+  "slug": "btc-volga",
+  "domain": "btc-volga.com"
+ },
+ {
+  "ext_id": "1134",
+  "name": "InstantExchangers",
+  "slug": "instantexchangers",
+  "domain": "instantexchangers.com"
+ },
+ {
+  "ext_id": "1372",
+  "name": "Sapfirex",
+  "slug": "sapfirex",
+  "domain": "sapfirex.com"
+ },
+ {
+  "ext_id": "641",
+  "name": "MarketCoin",
+  "slug": "marketcoin",
+  "domain": "marketcoin.io"
+ },
+ {
+  "ext_id": "386",
+  "name": "BitWorld",
+  "slug": "bitworld",
+  "domain": "bitworld.me"
+ },
+ {
+  "ext_id": "1440",
+  "name": "Air-Buy",
+  "slug": "air-buy",
+  "domain": "air-buy.exchange"
+ },
+ {
+  "ext_id": "752",
+  "name": "24ExPay",
+  "slug": "24expay",
+  "domain": "24expay.com"
+ },
+ {
+  "ext_id": "611",
+  "name": "ChangerClub",
+  "slug": "changerclub",
+  "domain": "changer.club"
+ },
+ {
+  "ext_id": "1258",
+  "name": "SF-Changer",
+  "slug": "sfchanger",
+  "domain": "sfchanger.com"
+ },
+ {
+  "ext_id": "1362",
+  "name": "MisterBit",
+  "slug": "misterbit",
+  "domain": "misterbit.pro"
+ },
+ {
+  "ext_id": "1397",
+  "name": "Worldex",
+  "slug": "worldex",
+  "domain": "worldex.gg"
+ },
+ {
+  "ext_id": "1453",
+  "name": "Sona",
+  "slug": "sona",
+  "domain": "sona.exchange"
+ }
+]
