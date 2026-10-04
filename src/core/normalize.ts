@@ -70,6 +70,6 @@ export const dayKey = (d = new Date()): string => d.toISOString().slice(0, 10);
 /** Sources print "Unknown"/"Неизвестно" when they cannot place the author: that is not a country. */
 export const cleanCountry = (c: string | null | undefined): string | null => {
   const v = (c || "").trim();
-  if (!v || /^(unknown|undefined|неизвестн\w*|не определен\w*|n\/a|none|-+|\?+)$/i.test(v)) return null;
+  if (!v || /^(unknown|undefined|неизвестн[а-яё]*|не определен[а-яё]*|n\/a|none|-+|\?+)$/i.test(v)) return null;
   return v.slice(0, 60);
 };
