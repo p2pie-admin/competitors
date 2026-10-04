@@ -65,3 +65,11 @@ test("country: placeholders are not countries", () => {
   assert.equal(cleanCountry(null), null);
   assert.equal(cleanCountry("Германия"), "Германия");
 });
+
+test("gibberish and pasted code are rejected, short real words are not", () => {
+  assert.equal(v("ODHbHOdrbslGPXIiidIz").reason, "gibberish");
+  assert.equal(v("wnNuAAljChQwBhPvoujBQ").reason, "gibberish");
+  assert.equal(v("const server = createServer((req, res) => { res.statusCode = 200; });").reason, "not-text");
+  assert.equal(v("Everything worked fine, thank you!").status, "published");
+  assert.equal(v("Отлично, спасибо большое за быстрый обмен").status, "published");
+});

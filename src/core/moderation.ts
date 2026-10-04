@@ -27,6 +27,20 @@ const CARD_RE = /\b(?:\d[ -]?){13,19}\b/;
 // Stems of Russian profanity; a match anywhere rejects (we do not publish censored-by-hand text).
 const PROFANITY_RE = /(?:^|[^а-яё])(?:[а-яё]*(?:хуй|хуе|хуё|хуя|пизд|пзд|ебан|ебат|ёбан|еблан|ебуч|ебал|заеб|разъеб|наеб|уеб|уёб|сука|суки|сучар|блять|бляд|блядь|мудак|мудил|гандон|пидор|пидар|залуп|шлюх)[а-яё]*)/i;
 
+// Random letter soup ("ODHbHOdrbslGPXIiidIz") and pasted code are test spam, not reviews.
+const looksLikeGibberish = (text: string): boolean => {
+  const t = text.trim();
+  if (/\s/.test(t) && t.split(/\s+/).length > 2) return false;
+  const latin = t.replace(/[^A-Za-z]/g, "");
+  if (latin.length >= 10 && latin.length / Math.max(1, t.length) > 0.8) {
+    const caseFlips = (latin.match(/[a-z][A-Z]/g) || []).length;
+    if (caseFlips >= 3) return true;
+    if (!/[aeiouyAEIOUY]/.test(latin)) return true;
+  }
+  return false;
+};
+const looksLikeCode = (text: string): boolean => (text.match(/[{};=<>]|=>|\)\s*\{/g) || []).length >= 4;
+
 export const sanitizeReviewText = (raw: string): string => cleanText(raw).slice(0, 4000);
 
 export const evaluateReview = (i: ModerationInput): Verdict => {
@@ -37,6 +51,9 @@ export const evaluateReview = (i: ModerationInput): Verdict => {
   if (text.replace(/\s/g, "").length < i.minChars) return { status: "rejected", reason: "too-short" };
   const letters = (text.match(/[a-zа-яё]/gi) || []).length;
   if (letters / Math.max(1, text.length) < 0.4) return { status: "rejected", reason: "not-text" };
+  if (text.split(/\s+/).some((w) => w.length >= 40)) return { status: "rejected", reason: "not-text" }; // invoices, hashes, pasted blobs
+  if (looksLikeGibberish(text)) return { status: "rejected", reason: "gibberish" };
+  if (looksLikeCode(text)) return { status: "rejected", reason: "not-text" };
   if (EMAIL_RE.test(text)) return { status: "rejected", reason: "contains-email" };
   if (URL_RE.test(text)) return { status: "rejected", reason: "contains-link" };
   if (HANDLE_RE.test(text) || TG_RE.test(text)) return { status: "rejected", reason: "contains-contact" };

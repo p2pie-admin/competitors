@@ -70,6 +70,13 @@ const schema = z.object({
   KURSEXPERT_PAGES_PER_TICK: int(6, 1, 100),
   KURSEXPERT_CRAWL_TICK_MIN: int(10, 1),
 
+  // --- ChangeInfo (changeinfo.ru) ---
+  CHANGEINFO_ENABLED: bool(true),
+  CHANGEINFO_SITE: z.string().default("https://changeinfo.ru"),
+  CHANGEINFO_LINKED_REFRESH_H: int(12, 1),
+  CHANGEINFO_PAGES_PER_TICK: int(6, 1, 100),
+  CHANGEINFO_CRAWL_TICK_MIN: int(10, 1),
+
   // Review moderation / publication limits.
   MIN_REVIEW_CHARS: int(15, 1),
   MAX_PUBLIC_REVIEWS: int(30, 1, 200),

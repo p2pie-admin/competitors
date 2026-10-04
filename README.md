@@ -1,7 +1,7 @@
 # competitors
 
 Backend service of p2pie.com that collects data about **exchangers listed on competing monitorings**
-(BestChange and KursExpert so far) and feeds it to the site:
+(BestChange, KursExpert, ChangeInfo so far) and feeds it to the site:
 
 - exchanger facts from the source: reserves, number of directions, review counters, claims, age;
 - review **texts copied with the source named** and a link to the original. They are written into Strapi's native
@@ -160,6 +160,7 @@ The front (`services/queries.ts`) asks for `source external_link external_date`,
 |---|---|---|
 | BestChange | **done** | official `info.zip` + plain exchanger pages; query URLs forbidden by robots.txt |
 | KursExpert (kurs.expert) | **done** | robots.txt open; list `/ru/obmennik.html` (369 exchangers, counters, reserves), reviews on `/ru/obmennik/<slug>/feedbacks.html` (~40 newest per page, tone given by the source); its negative reviews ("претензия") are imported too so the picture stays balanced; user-to-user answers are not |
+| ChangeInfo (changeinfo.ru) | **done** | `/exchangers` list (name, website → domain match, reserve, counters), reviews on `/review/<name>` (the `/positive` and `/negative` sub-pages are disallowed by robots.txt and never requested); the feed has a lot of test spam (random strings, pasted code, invoices), so moderation also rejects gibberish, code and 40+ character tokens |
 | ExchangeSumo | no texts | reviews are loaded through `/comment/…`, which its robots.txt disallows; no server-rendered reviews |
 | OKChanger | skipped | exchanger pages take 80+ s and 1.4 MB, reviews load by AJAX (`view-thread`, disallowed) |
 | Exnode.ru | blocked | answers 403 to non-browser clients (anti-bot); we do not circumvent protections |
