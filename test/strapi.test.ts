@@ -236,3 +236,18 @@ test("takedown also deletes the reply copy (Strapi does not cascade)", async () 
   assert.equal(fake.reviews.size, 0);
   assert.equal(fake.replies.size, 0);
 });
+
+test("sync nudges the front to regenerate the pages of exchangers it changed", async () => {
+  const hits: string[] = [];
+  const base = fakeStrapi();
+  const wrapped = (async (input: string | URL | Request, init?: RequestInit) =>
+    String(input).endsWith("/api/revalidate") ? (hits.push(String(init?.body)), new Response("{}")) : base.fetchImpl(input, init)) as typeof fetch;
+  const { ctx, store } = setup({ FRONT_URL: "http://front:3000", REVALIDATE_SECRET: "s" }, { ...base, fetchImpl: wrapped });
+  const withFetch = { ...ctx, fetch: wrapped };
+  store.upsertReview(review("1"));
+  const s = await runStrapiSync(withFetch);
+  assert.equal(s.created, 1);
+  assert.equal(s.revalidated, 1);
+  assert.deepEqual(JSON.parse(hits[0]!).paths, ["/exchangers/sova"]);
+  assert.equal((await runStrapiSync(withFetch)).revalidated, 0, "nothing changed, nothing to regenerate");
+});

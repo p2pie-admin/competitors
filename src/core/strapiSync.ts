@@ -3,6 +3,7 @@ import type { ExternalReview } from "../db/store";
 import { StrapiError, type StrapiReviewInput } from "./strapi";
 import { sha1 } from "./normalize";
 import { sourceLabel } from "../sources/meta";
+import { revalidateExchangerPages } from "./revalidate";
 
 const toIso = (sec: number) => new Date(sec * 1000).toISOString();
 
@@ -38,7 +39,8 @@ export const runStrapiSync = async (ctx: JobCtx): Promise<Record<string, unknown
   const { store, config, strapi, log } = ctx;
   if (!strapi || !config.STRAPI_SYNC_ENABLED) return { skipped: true, reason: strapi ? "disabled" : "no Strapi credentials" };
 
-  const stats = { tombstones: 0, removed: 0, updated: 0, created: 0, adopted: 0, errors: 0, goneInStrapi: 0 };
+  const touched = new Set<string>(); // our exchanger names whose pages must be regenerated
+  const stats = { revalidated: 0, tombstones: 0, removed: 0, updated: 0, created: 0, adopted: 0, errors: 0, goneInStrapi: 0 };
   let budget = config.STRAPI_SYNC_BATCH;
   let consecutiveErrors = 0;
   const minPostedAt = Math.floor(Date.now() / 1000) - config.MAX_REVIEW_AGE_DAYS * 86400;
@@ -78,6 +80,7 @@ export const runStrapiSync = async (ctx: JobCtx): Promise<Record<string, unknown
       if (r.strapi_reply_id) await strapi.deleteReply(r.strapi_reply_id);
       await strapi.deleteReview(r.strapi_id!);
       store.clearSynced(r.id);
+      if (r.our_name) touched.add(r.our_name);
     });
     if (ok) stats.removed++;
   }
@@ -104,6 +107,7 @@ export const runStrapiSync = async (ctx: JobCtx): Promise<Record<string, unknown
         if (r.strapi_reply_id) await strapi.deleteReply(r.strapi_reply_id);
         const replyId = r.reply_text ? await strapi.createReply(r.strapi_id!, r.reply_text) : null;
         store.markSynced(r.id, r.strapi_id!, replyId, hash);
+        if (r.our_name) touched.add(r.our_name);
       });
       if (ok) stats.updated++;
     }
@@ -120,9 +124,12 @@ export const runStrapiSync = async (ctx: JobCtx): Promise<Record<string, unknown
         if (before) stats.adopted++;
         const replyId = r.reply_text ? await strapi.createReply(id, r.reply_text) : null;
         store.markSynced(r.id, id, replyId, contentHash(r, r.our_exchanger_id));
+        if (r.our_name) touched.add(r.our_name);
       });
       if (ok) stats.created++;
     }
   }
+  // Pages are static (ISR): regenerate the exchangers whose reviews just changed.
+  if (touched.size) stats.revalidated = (await revalidateExchangerPages(config, [...touched], ctx.fetch)).requested;
   return stats;
 };

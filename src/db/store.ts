@@ -420,10 +420,10 @@ export class Store {
   }
 
   /** Already in Strapi (strapi_id set): all rows, the caller compares content hashes. */
-  syncPublished(minPostedAt: number): Array<ExternalReview & { our_exchanger_id: string }> {
+  syncPublished(minPostedAt: number): Array<ExternalReview & { our_exchanger_id: string; our_name: string | null }> {
     return this.db
       .prepare(
-        `SELECT r.*, l.our_exchanger_id AS our_exchanger_id FROM external_reviews r
+        `SELECT r.*, l.our_exchanger_id AS our_exchanger_id, l.our_name AS our_name FROM external_reviews r
          JOIN exchanger_links l ON l.source = r.source AND l.ext_id = r.ext_id
          WHERE r.strapi_id IS NOT NULL AND ${Store.ELIGIBLE}`
       )
@@ -431,10 +431,11 @@ export class Store {
   }
 
   /** In Strapi but no longer eligible (hidden, rejected, link gone, too old, kill switch). */
-  syncToRemove(minPostedAt: number, killSwitch: boolean, limit: number): ExternalReview[] {
-    if (killSwitch) return this.db.prepare("SELECT * FROM external_reviews WHERE strapi_id IS NOT NULL LIMIT ?").all(limit) as never;
+  syncToRemove(minPostedAt: number, killSwitch: boolean, limit: number): Array<ExternalReview & { our_name: string | null }> {
+    const select = `SELECT r.*, (SELECT l.our_name FROM exchanger_links l WHERE l.source = r.source AND l.ext_id = r.ext_id) AS our_name FROM external_reviews r`;
+    if (killSwitch) return this.db.prepare(`${select} WHERE r.strapi_id IS NOT NULL LIMIT ?`).all(limit) as never;
     return this.db
-      .prepare(`SELECT r.* FROM external_reviews r WHERE r.strapi_id IS NOT NULL AND NOT (${Store.ELIGIBLE}) LIMIT @limit`)
+      .prepare(`${select} WHERE r.strapi_id IS NOT NULL AND NOT (${Store.ELIGIBLE}) LIMIT @limit`)
       .all({ minPostedAt, limit }) as never;
   }
 
