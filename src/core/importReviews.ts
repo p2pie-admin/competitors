@@ -1,7 +1,7 @@
 import type { JobCtx } from "./types";
 import type { NewReview, SourceExchanger } from "../db/store";
 import { evaluateReview, sanitizeReviewText } from "./moderation";
-import { sha1 } from "./normalize";
+import { cleanCountry, sha1 } from "./normalize";
 
 /** A review as scraped from any source, before moderation. */
 export type ScrapedReview = {
@@ -63,7 +63,7 @@ export const importReviews = (
       ext_id: exchanger.ext_id,
       ext_review_id: r.extReviewId,
       author: r.author ? r.author.slice(0, 60) : null,
-      country: r.country,
+      country: cleanCountry(r.country),
       rating: r.rating,
       text,
       text_hash: hash,

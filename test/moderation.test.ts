@@ -56,3 +56,12 @@ test("rating scale", () => {
 test("sanitize collapses whitespace and strips control chars", () => {
   assert.equal(sanitizeReviewText("  a ​ b  c \n\n\n\n d "), "a b c\n\nd");
 });
+
+import { cleanCountry } from "../src/core/normalize";
+test("country: placeholders are not countries", () => {
+  assert.equal(cleanCountry("Unknown"), null);
+  assert.equal(cleanCountry(" неизвестно "), null);
+  assert.equal(cleanCountry("-"), null);
+  assert.equal(cleanCountry(null), null);
+  assert.equal(cleanCountry("Германия"), "Германия");
+});
