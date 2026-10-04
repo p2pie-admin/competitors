@@ -2,16 +2,14 @@ import type { FastifyInstance } from "fastify";
 import { z } from "zod";
 import type { Config } from "../config";
 import type { Store, ExternalReview, SourceExchanger } from "../db/store";
-import { ratingToType } from "../core/moderation";
+import { sourceLabel } from "../sources/meta";
 
 export const NOTICE =
   "Отзывы скопированы с указанного источника без изменений смысла и показаны со ссылкой на оригинал. " +
   "Они не являются отзывами пользователей p2pie и не учитываются в нашем рейтинге.";
 
-const SOURCE_LABELS: Record<string, string> = { bestchange: "BestChange" };
-
 const q = z.object({
-  limit: z.coerce.number().int().min(1).max(100).optional(),
+  limit: z.coerce.number().int().min(0).max(100).optional(),
   offset: z.coerce.number().int().min(0).max(5000).default(0),
   type: z.enum(["positive", "neutral", "negative"]).optional(),
 });
@@ -22,7 +20,7 @@ export const publicReview = (r: ExternalReview) => ({
   author: r.author,
   country: r.country,
   rating: r.rating,
-  type: ratingToType(r.rating),
+  type: r.sentiment,
   text: r.text,
   postedAt: r.posted_at,
   url: r.source_url,
@@ -51,6 +49,7 @@ export const registerPublicRoutes = (app: FastifyInstance, store: Store, config:
     if (!parsed.success) return reply.code(400).send({ error: "bad query", details: parsed.error.flatten() });
     const { offset, type } = parsed.data;
     const limit = Math.min(parsed.data.limit ?? config.MAX_PUBLIC_REVIEWS, config.MAX_PUBLIC_REVIEWS);
+    // limit=0: counters only (the reviews themselves live in Strapi now).
     const minPostedAt = Math.floor(Date.now() / 1000) - config.MAX_REVIEW_AGE_DAYS * 86400;
 
     const sources = store
@@ -59,12 +58,12 @@ export const registerPublicRoutes = (app: FastifyInstance, store: Store, config:
         const ex = store.getExchanger(link.source, link.ext_id);
         if (!ex || ex.status === "gone") return null;
         const available = store.countPublishedForExchanger(link.source, link.ext_id, minPostedAt);
-        const reviews = config.PUBLISH_REVIEW_TEXTS
+        const reviews = config.PUBLISH_REVIEW_TEXTS && limit > 0
           ? store.publishedForExchanger(link.source, link.ext_id, { limit, offset, minPostedAt, rating: type }).map(publicReview)
           : [];
         return {
           source: link.source,
-          name: SOURCE_LABELS[link.source] ?? link.source,
+          name: sourceLabel(link.source),
           exchangerName: ex.name,
           url: ex.url,
           matchConfidence: link.confidence,
@@ -91,7 +90,7 @@ export const registerPublicRoutes = (app: FastifyInstance, store: Store, config:
       for (const link of store.linksForOur(id)) {
         const ex = store.getExchanger(link.source, link.ext_id);
         if (!ex || ex.status === "gone") continue;
-        (out[id] ??= []).push({ source: link.source, name: SOURCE_LABELS[link.source] ?? link.source, positive: ex.reviews_pos, negative: ex.reviews_neg, url: ex.url });
+        (out[id] ??= []).push({ source: link.source, name: sourceLabel(link.source), positive: ex.reviews_pos, negative: ex.reviews_neg, url: ex.url });
       }
     }
     reply.header("cache-control", "public, max-age=300");

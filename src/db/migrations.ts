@@ -135,4 +135,23 @@ export const MIGRATIONS: string[] = [
     updated_at INTEGER NOT NULL
   );
   `,
+  // 2 — sentiment (source-provided or derived from stars) and the link to the copy in Strapi
+  `
+  ALTER TABLE external_reviews ADD COLUMN sentiment TEXT;       -- positive | neutral | negative | NULL (unrated)
+  ALTER TABLE external_reviews ADD COLUMN strapi_id TEXT;       -- id of the review in Strapi (NULL = not published there)
+  ALTER TABLE external_reviews ADD COLUMN strapi_reply_id TEXT;
+  ALTER TABLE external_reviews ADD COLUMN synced_hash TEXT;
+  ALTER TABLE external_reviews ADD COLUMN synced_at INTEGER;
+  UPDATE external_reviews SET sentiment = CASE WHEN rating >= 4 THEN 'positive' WHEN rating = 3 THEN 'neutral' WHEN rating <= 2 THEN 'negative' END
+    WHERE rating IS NOT NULL;
+  CREATE INDEX idx_reviews_strapi ON external_reviews(strapi_id);
+
+  -- Copies in Strapi whose source row is gone (takedown): deleted from Strapi by the sync job.
+  CREATE TABLE strapi_tombstones (
+    strapi_id TEXT PRIMARY KEY,
+    reply_id TEXT,              -- Strapi does not cascade: the reply must be deleted explicitly
+    reason TEXT,
+    created_at INTEGER NOT NULL
+  );
+  `,
 ];

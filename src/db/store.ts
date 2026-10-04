@@ -45,12 +45,17 @@ export type ExternalReview = {
   reply_at: number | null;
   status: ReviewStatus;
   reject_reason: string | null;
+  sentiment: "positive" | "neutral" | "negative" | null;
+  strapi_id: string | null;
+  strapi_reply_id: string | null;
+  synced_hash: string | null;
+  synced_at: number | null;
   first_seen: number;
   last_seen: number;
   updated_at: number;
 };
 
-export type NewReview = Omit<ExternalReview, "id" | "first_seen" | "last_seen" | "updated_at">;
+export type NewReview = Omit<ExternalReview, "id" | "first_seen" | "last_seen" | "updated_at" | "strapi_id" | "strapi_reply_id" | "synced_hash" | "synced_at">;
 
 export type Link = {
   source: string;
@@ -108,18 +113,21 @@ export class Store {
     directions: number | null;
     reviews_pos: number | null;
     reviews_neg: number | null;
+    reviews_total?: number | null;
+    age_text?: string | null;
   }): void {
     const t = nowSec();
     this.db
       .prepare(
-        `INSERT INTO source_exchangers(source, ext_id, name, status, reserve_usd, directions, reviews_pos, reviews_neg, first_seen, last_seen)
-         VALUES (@source, @ext_id, @name, 'active', @reserve_usd, @directions, @reviews_pos, @reviews_neg, @t, @t)
+        `INSERT INTO source_exchangers(source, ext_id, name, status, reserve_usd, directions, reviews_pos, reviews_neg, reviews_total, age_text, first_seen, last_seen)
+         VALUES (@source, @ext_id, @name, 'active', @reserve_usd, @directions, @reviews_pos, @reviews_neg, @reviews_total, @age_text, @t, @t)
          ON CONFLICT(source, ext_id) DO UPDATE SET
            name = excluded.name, status = 'active', reserve_usd = excluded.reserve_usd,
-           directions = excluded.directions, reviews_pos = excluded.reviews_pos,
-           reviews_neg = excluded.reviews_neg, last_seen = excluded.last_seen`
+           directions = COALESCE(excluded.directions, directions), reviews_pos = excluded.reviews_pos,
+           reviews_neg = excluded.reviews_neg, reviews_total = COALESCE(excluded.reviews_total, reviews_total),
+           age_text = COALESCE(excluded.age_text, age_text), last_seen = excluded.last_seen`
       )
-      .run({ ...e, t });
+      .run({ reviews_total: null, age_text: null, ...e, t });
   }
 
   /** Mark exchangers missing from the latest API snapshot as gone (kept for history). */
@@ -293,9 +301,9 @@ export class Store {
       this.db
         .prepare(
           `INSERT INTO external_reviews(source, ext_id, ext_review_id, author, country, rating, text, text_hash, posted_at, source_url,
-             reply_author, reply_text, reply_at, status, reject_reason, first_seen, last_seen, updated_at)
+             reply_author, reply_text, reply_at, status, reject_reason, sentiment, first_seen, last_seen, updated_at)
            VALUES (@source, @ext_id, @ext_review_id, @author, @country, @rating, @text, @text_hash, @posted_at, @source_url,
-             @reply_author, @reply_text, @reply_at, @status, @reject_reason, @t, @t, @t)`
+             @reply_author, @reply_text, @reply_at, @status, @reject_reason, @sentiment, @t, @t, @t)`
         )
         .run({ ...r, t });
       return "inserted";
@@ -305,13 +313,15 @@ export class Store {
     const changed =
       existing.text_hash !== r.text_hash ||
       existing.rating !== r.rating ||
+      existing.sentiment !== r.sentiment ||
+      existing.author !== r.author ||
       existing.reply_text !== r.reply_text ||
       existing.status !== status;
     this.db
       .prepare(
         `UPDATE external_reviews SET author = @author, country = @country, rating = @rating, text = @text, text_hash = @text_hash,
            reply_author = @reply_author, reply_text = @reply_text, reply_at = @reply_at, status = @status,
-           reject_reason = @reject_reason, last_seen = @t, updated_at = CASE WHEN @changed THEN @t ELSE updated_at END
+           reject_reason = @reject_reason, sentiment = @sentiment, last_seen = @t, updated_at = CASE WHEN @changed THEN @t ELSE updated_at END
          WHERE id = @id`
       )
       .run({ ...r, status, changed: changed ? 1 : 0, t, id: existing.id });
@@ -394,12 +404,69 @@ export class Store {
     return this.db.prepare(sql).all(...args, opts.limit, opts.offset) as ExternalReview[];
   }
 
+  // ---- Strapi sync ---------------------------------------------------------------------------
+  /** Reviews that should exist in Strapi: published, with sentiment, linked to one of ours, recent enough. */
+  private static readonly ELIGIBLE = `r.status = 'published' AND r.sentiment IS NOT NULL AND r.posted_at >= @minPostedAt
+    AND EXISTS (SELECT 1 FROM exchanger_links l WHERE l.source = r.source AND l.ext_id = r.ext_id)`;
+
+  syncToCreate(minPostedAt: number, limit: number): Array<ExternalReview & { our_exchanger_id: string; our_name: string | null }> {
+    return this.db
+      .prepare(
+        `SELECT r.*, l.our_exchanger_id AS our_exchanger_id, l.our_name AS our_name FROM external_reviews r
+         JOIN exchanger_links l ON l.source = r.source AND l.ext_id = r.ext_id
+         WHERE r.strapi_id IS NULL AND ${Store.ELIGIBLE} ORDER BY r.posted_at DESC LIMIT @limit`
+      )
+      .all({ minPostedAt, limit }) as never;
+  }
+
+  /** Already in Strapi (strapi_id set): all rows, the caller compares content hashes. */
+  syncPublished(minPostedAt: number): Array<ExternalReview & { our_exchanger_id: string }> {
+    return this.db
+      .prepare(
+        `SELECT r.*, l.our_exchanger_id AS our_exchanger_id FROM external_reviews r
+         JOIN exchanger_links l ON l.source = r.source AND l.ext_id = r.ext_id
+         WHERE r.strapi_id IS NOT NULL AND ${Store.ELIGIBLE}`
+      )
+      .all({ minPostedAt }) as never;
+  }
+
+  /** In Strapi but no longer eligible (hidden, rejected, link gone, too old, kill switch). */
+  syncToRemove(minPostedAt: number, killSwitch: boolean, limit: number): ExternalReview[] {
+    if (killSwitch) return this.db.prepare("SELECT * FROM external_reviews WHERE strapi_id IS NOT NULL LIMIT ?").all(limit) as never;
+    return this.db
+      .prepare(`SELECT r.* FROM external_reviews r WHERE r.strapi_id IS NOT NULL AND NOT (${Store.ELIGIBLE}) LIMIT @limit`)
+      .all({ minPostedAt, limit }) as never;
+  }
+
+  markSynced(id: number, strapiId: string, replyId: string | null, hash: string): void {
+    this.db
+      .prepare("UPDATE external_reviews SET strapi_id = ?, strapi_reply_id = ?, synced_hash = ?, synced_at = ? WHERE id = ?")
+      .run(strapiId, replyId, hash, nowSec(), id);
+  }
+
+  clearSynced(id: number): void {
+    this.db.prepare("UPDATE external_reviews SET strapi_id = NULL, strapi_reply_id = NULL, synced_hash = NULL, synced_at = NULL WHERE id = ?").run(id);
+  }
+
+  tombstones(limit: number): Array<{ strapi_id: string; reply_id: string | null }> {
+    return this.db.prepare("SELECT strapi_id, reply_id FROM strapi_tombstones ORDER BY created_at LIMIT ?").all(limit) as never;
+  }
+
+  ackTombstone(strapiId: string): void {
+    this.db.prepare("DELETE FROM strapi_tombstones WHERE strapi_id = ?").run(strapiId);
+  }
+
   // ---- takedowns -----------------------------------------------------------------------------
   addTakedown(t: { source: string; ext_review_id?: string | null; ext_id?: string | null; reason?: string | null }): number {
     const res = this.db
       .prepare("INSERT INTO takedowns(source, ext_review_id, ext_id, reason, created_at) VALUES (?, ?, ?, ?, ?)")
       .run(t.source, t.ext_review_id ?? null, t.ext_id ?? null, t.reason ?? null, nowSec());
-    // Remove what we already hold, so a takedown is immediate and permanent.
+    // Remove what we already hold, so a takedown is immediate and permanent. Copies in Strapi are queued for deletion.
+    const tomb = this.db.prepare("INSERT OR IGNORE INTO strapi_tombstones(strapi_id, reply_id, reason, created_at) VALUES (?, ?, ?, ?)");
+    const queue = (rows: Array<{ strapi_id: string | null; strapi_reply_id: string | null }>) =>
+      rows.forEach((r) => r.strapi_id && tomb.run(r.strapi_id, r.strapi_reply_id, "takedown", nowSec()));
+    if (t.ext_review_id) queue(this.db.prepare("SELECT strapi_id, strapi_reply_id FROM external_reviews WHERE source = ? AND ext_review_id = ?").all(t.source, t.ext_review_id) as never);
+    if (t.ext_id) queue(this.db.prepare("SELECT strapi_id, strapi_reply_id FROM external_reviews WHERE source = ? AND ext_id = ?").all(t.source, t.ext_id) as never);
     if (t.ext_review_id) {
       this.db.prepare("DELETE FROM external_reviews WHERE source = ? AND ext_review_id = ?").run(t.source, t.ext_review_id);
     }

@@ -19,7 +19,7 @@ const setup = (env: Record<string, string> = {}) => {
     store.upsertReview({
       source: "bestchange", ext_id: "1006", ext_review_id: n, author: "Андрей", country: "Россия", rating: 5, text: `Отзыв номер ${n}, всё хорошо`, text_hash: "h" + n,
       posted_at: now - Number(n) * 60, source_url: `https://www.bestchange.ru/sova-exchanger.html?review=${n}`, reply_author: "Администратор Сова", reply_text: "Спасибо!", reply_at: now,
-      status: "published", reject_reason: null, ...o,
+      status: "published", reject_reason: null, sentiment: o.rating === 1 ? "negative" : "positive", ...o,
     } as never);
   mkReview("1");
   mkReview("2", { rating: 1, reply_text: null, reply_author: null, reply_at: null });

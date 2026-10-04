@@ -3,6 +3,7 @@ import type { Store } from "../db/store";
 import type { PoliteClient } from "../http/client";
 import type { Logger } from "../log";
 import type { OurExchangers } from "./ourExchangers";
+import type { StrapiClient } from "./strapi";
 
 export type JobCtx = {
   store: Store;
@@ -12,6 +13,8 @@ export type JobCtx = {
   log: Logger;
   /** Plain (non-crawling) HTTP for our own infrastructure: front revalidation. Injectable for tests. */
   fetch?: typeof fetch;
+  /** Strapi writer; absent when no credentials are configured. */
+  strapi?: StrapiClient;
 };
 
 export type JobDef = {

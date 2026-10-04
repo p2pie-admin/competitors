@@ -1,70 +1,26 @@
 import { parseExchangerPage, type ParsedReview } from "./pages";
 import { SOURCE_ID } from "./constants";
 import { BlockedByRobotsError, HttpError } from "../../http/errors";
-import { evaluateReview, sanitizeReviewText } from "../../core/moderation";
+import { ratingToType } from "../../core/moderation";
+import { addStats, emptyImportStats, importReviews, type ReviewImportStats, type ScrapedReview } from "../../core/importReviews";
 import { sha1 } from "../../core/normalize";
 import { revalidateExchangerPages } from "../../core/revalidate";
 import type { JobCtx } from "../../core/types";
-import type { NewReview, SourceExchanger } from "../../db/store";
 
-export type ReviewImportStats = { seen: number; inserted: number; updated: number; unchanged: number; rejected: number; pending: number; takedown: number; skippedClaims: number };
-
-export const emptyImportStats = (): ReviewImportStats => ({ seen: 0, inserted: 0, updated: 0, unchanged: 0, rejected: 0, pending: 0, takedown: 0, skippedClaims: 0 });
-
-/** Turn parsed page reviews into stored rows (moderation included). Pure w.r.t. network. */
-export const importReviews = (
-  ctx: Pick<JobCtx, "store" | "config">,
-  exchanger: SourceExchanger,
-  reviews: ParsedReview[],
-  pageUrl: string
-): ReviewImportStats => {
-  const { store, config } = ctx;
-  const stats = emptyImportStats();
-  for (const r of reviews) {
-    stats.seen++;
-    if (r.kind !== "review") {
-      // Financial claims name specific parties and are disputed by nature: we show their COUNT only.
-      stats.skippedClaims++;
-      continue;
-    }
-    if (!r.postedAt) continue;
-    const text = sanitizeReviewText(r.text);
-    const hash = sha1(text.toLowerCase());
-    const verdict = evaluateReview({
-      text,
-      rating: r.rating,
-      flaggedBySource: r.flagTexts.length > 0,
-      sourceFlagText: r.flagTexts.join("; "),
-      minChars: config.MIN_REVIEW_CHARS,
-      duplicatesOfText: store.countSameText(SOURCE_ID, exchanger.ext_id, hash, r.extReviewId),
-    });
-    const row: NewReview = {
-      source: SOURCE_ID,
-      ext_id: exchanger.ext_id,
-      ext_review_id: r.extReviewId,
-      author: r.author ? r.author.slice(0, 60) : null,
-      country: r.country,
-      rating: r.rating,
-      text,
-      text_hash: hash,
-      posted_at: r.postedAt,
-      source_url: r.permalink ?? `${pageUrl}?review=${r.extReviewId}`,
-      reply_author: r.reply ? r.reply.author.slice(0, 80) : null,
-      reply_text: r.reply ? sanitizeReviewText(r.reply.text) : null,
-      reply_at: r.reply?.at ?? null,
-      status: verdict.status,
-      reject_reason: verdict.reason,
-    };
-    const res = store.upsertReview(row);
-    if (res === "takedown") stats.takedown++;
-    else stats[res]++;
-    if (res !== "takedown") {
-      if (verdict.status === "rejected") stats.rejected++;
-      else if (verdict.status === "pending") stats.pending++;
-    }
-  }
-  return stats;
-};
+/** BestChange markup -> neutral shape; sentiment comes from the stars. */
+const toScraped = (r: ParsedReview, pageUrl: string): ScrapedReview => ({
+  extReviewId: r.extReviewId,
+  kind: r.kind,
+  author: r.author,
+  country: r.country,
+  rating: r.rating,
+  sentiment: ratingToType(r.rating),
+  postedAt: r.postedAt,
+  permalink: r.permalink ?? `${pageUrl}?review=${r.extReviewId}`,
+  text: r.text,
+  flagTexts: r.flagTexts,
+  reply: r.reply,
+});
 
 /**
  * One crawl tick: read the stalest few exchanger pages we care about. Only the plain page URL
@@ -115,8 +71,8 @@ export const runPagesJob = async (ctx: JobCtx): Promise<Record<string, unknown>>
         reserve_usd: page.reserveUsd,
         page_hash: sha1(page.reviews.map((r) => r.extReviewId + r.text).join("|")),
       });
-      const s = importReviews(ctx, store.getExchanger(SOURCE_ID, ex.ext_id)!, page.reviews, url);
-      for (const k of Object.keys(total) as Array<keyof ReviewImportStats>) total[k] += s[k];
+      const s = importReviews(ctx, SOURCE_ID, ex, page.reviews.map((r) => toScraped(r, url)), url);
+      addStats(total, s);
       if (s.inserted + s.updated > 0) {
         const link = store.getLink(SOURCE_ID, ex.ext_id);
         if (link?.our_name) changedOurNames.add(link.our_name);

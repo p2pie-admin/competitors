@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { openDb } from "../src/db";
 import { Store, type NewReview } from "../src/db/store";
+import { MIGRATIONS } from "../src/db/migrations";
 
 const mk = () => {
   const store = new Store(openDb(":memory:"));
@@ -26,12 +27,13 @@ const review = (o: Partial<NewReview> = {}): NewReview => ({
   reply_at: null,
   status: "published",
   reject_reason: null,
+  sentiment: "positive",
   ...o,
 });
 
 test("migrations create the schema and are idempotent", () => {
   const store = mk();
-  assert.equal(store.db.pragma("user_version", { simple: true }), 1);
+  assert.equal(store.db.pragma("user_version", { simple: true }), MIGRATIONS.length);
   assert.equal(store.listSources().length, 1);
 });
 

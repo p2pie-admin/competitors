@@ -1,16 +1,19 @@
 # competitors
 
 Backend service of p2pie.com that collects data about **exchangers listed on competing monitorings**
-(BestChange first) and feeds it to the site:
+(BestChange and KursExpert so far) and feeds it to the site:
 
 - exchanger facts from the source: reserves, number of directions, review counters, claims, age;
-- review **texts copied with the source named** and a link to the original, shown on our exchanger pages;
+- review **texts copied with the source named** and a link to the original. They are written into Strapi's native
+  `review` collection (new fields `source`, `external_link`, `external_id`, `external_date`), so the site shows them in
+  the same list and format as our own reviews, tagged "ИСТОЧНИК: …" with a link to the original;
 - growth history (daily snapshots) for later analysis.
 
 It is a separate service like `server`/`parser`: Fastify + TypeScript, its own Docker image, SQLite in a volume,
 reachable only inside the docker network (`http://competitors:5100`), not exposed through the reverse proxy.
 
 ```
+ sources: BestChange · KursExpert · (more: see "Sources we looked at")
                           info.zip (official export)        exchanger pages (robots.txt allowed only)
                                    │                                    │
                                    ▼                                    ▼
@@ -21,7 +24,9 @@ reachable only inside the docker network (`http://competitors:5100`), not expose
                                    ▲
                             our exchangers (GET server /exchangers)
 
- public API  GET /v1/exchangers/:ourId/external  ──►  front (getStaticProps, ISR)  ──►  "Отзывы на BestChange"
+ strapi.sync job (every 5 min): published + rated/toned + linked reviews ──► Strapi `review` (REST, user "parser")
+                                  hidden/rejected/unlinked/takedown/kill switch ──► deleted from Strapi
+ public API  GET /v1/exchangers/:ourId/external  ──►  front: counters line "Отзывы на BestChange" (limit=0)
  admin API   /admin/*  (Bearer token)                  moderation, manual links, takedowns, job runs, status
 ```
 
@@ -124,3 +129,42 @@ annoying, not fatal — except `takedowns` and manual links: keep the volume bac
   imported from that page. Fixtures in `test/fixtures` show what the parser expects.
 - Legal: copying third-party review texts is the owner's decision and risk (BestChange's terms are not a licence). Mitigations built
   in: attribution + link, takedown endpoint, kill switch, no claims, no personal data, polite crawling. Respond quickly to any request.
+
+
+## Strapi (native review format)
+
+`strapi.sync` (src/core/strapiSync.ts) keeps Strapi's `review` collection equal to what we are allowed to show:
+
+| Strapi field | value |
+|---|---|
+| `exchanger` | our exchanger id (from the link) |
+| `text`, `type` | sanitized text; `type` = tone (positive/neutral/negative: stars on BestChange, the source's own tone on KursExpert) |
+| `name`, `location` | author's public nickname, country |
+| `isApproved` | `true` (it passed our moderation) |
+| `fingerprint` | `ext:<source>:<review id>` — unique, so a retry after a crash adopts the existing copy |
+| `source` | display name ("BestChange", "KursExpert") |
+| `external_link` | permalink of the review on the source |
+| `external_id`, `external_date` | `<source>:<id>`, the original date (Strapi's `createdAt` cannot be set, the front sorts and shows `external_date`) |
+| `review_replies` | the exchanger's reply (`from: "exchanger"`) when the source has one |
+
+Rules: unrated reviews (no stars and no tone) are not synced; Strapi does not cascade deletes, so replies are deleted
+explicitly; a review deleted in Strapi by hand is marked `hidden` here and never resurrected; `PUBLISH_REVIEW_TEXTS=false`
+removes every copy from Strapi (kill switch); takedowns delete the copy through `strapi_tombstones`. Credentials are the
+`STRAPI_AUTH_IDENTIFIER/PASSWORD` of the `parser` user already in the shared `.env`. Batch size `STRAPI_SYNC_BATCH` (40 per run).
+The front (`services/queries.ts`) asks for `source external_link external_date`, sorts by `external_date`, and the global
+"latest reviews" feed on the home page excludes copies (`source: { null: true }`).
+
+## Sources we looked at (2026-10-04)
+
+| Source | Status | Why |
+|---|---|---|
+| BestChange | **done** | official `info.zip` + plain exchanger pages; query URLs forbidden by robots.txt |
+| KursExpert (kurs.expert) | **done** | robots.txt open; list `/ru/obmennik.html` (369 exchangers, counters, reserves), reviews on `/ru/obmennik/<slug>/feedbacks.html` (~40 newest per page, tone given by the source); its negative reviews ("претензия") are imported too so the picture stays balanced; user-to-user answers are not |
+| ExchangeSumo | no texts | reviews are loaded through `/comment/…`, which its robots.txt disallows; no server-rendered reviews |
+| OKChanger | skipped | exchanger pages take 80+ s and 1.4 MB, reviews load by AJAX (`view-thread`, disallowed) |
+| Exnode.ru | blocked | answers 403 to non-browser clients (anti-bot); we do not circumvent protections |
+| 1obmen.net, cryptorates.ru | blocked | Cloudflare challenge; same |
+| bits.media exchangers | gone | `exchanger.bits.media` returns 404 |
+| bestexchangers.com & co | duplicates | redirect to / clones of BestChange (same reviews) |
+
+Review texts of KursExpert come with Moscow-time stamps (the site shows no zone); stored as UTC.

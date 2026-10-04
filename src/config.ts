@@ -35,6 +35,13 @@ const schema = z.object({
   // (POST {FRONT_URL}/api/revalidate). Both must be set, otherwise pages refresh on their own TTL (1 h).
   FRONT_URL: z.string().optional(),
   REVALIDATE_SECRET: z.string().optional(),
+  // Strapi (CMS) where imported reviews are stored in our native review format. Credentials are the same
+  // ones `server` uses (a Strapi user with rights on reviews); they already sit in the shared .env.
+  STRAPI_URL: z.string().default("http://strapi:1337"),
+  STRAPI_AUTH_IDENTIFIER: z.string().optional(),
+  STRAPI_AUTH_PASSWORD: z.string().optional(),
+  STRAPI_SYNC_ENABLED: bool(true),
+  STRAPI_SYNC_BATCH: int(40, 1, 500),
   // Master switches.
   ENABLE_JOBS: bool(true),
   // Publishing of review TEXTS. When false the service still collects and counts, but the public
@@ -55,6 +62,13 @@ const schema = z.object({
   // Hard cap per crawl tick so one run never hammers the site.
   BESTCHANGE_PAGES_PER_TICK: int(6, 1, 100),
   BESTCHANGE_CRAWL_TICK_MIN: int(10, 1),
+
+  // --- KursExpert (kurs.expert) ---
+  KURSEXPERT_ENABLED: bool(true),
+  KURSEXPERT_SITE: z.string().default("https://kurs.expert"),
+  KURSEXPERT_LINKED_REFRESH_H: int(12, 1),
+  KURSEXPERT_PAGES_PER_TICK: int(6, 1, 100),
+  KURSEXPERT_CRAWL_TICK_MIN: int(10, 1),
 
   // Review moderation / publication limits.
   MIN_REVIEW_CHARS: int(15, 1),

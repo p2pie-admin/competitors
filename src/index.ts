@@ -9,6 +9,8 @@ import { SOURCES } from "./sources/registry";
 import { buildServer } from "./api/server";
 import { nowSec } from "./db";
 import type { JobCtx } from "./core/types";
+import { StrapiClient } from "./core/strapi";
+import { runStrapiSync } from "./core/strapiSync";
 
 const log = logger("main");
 
@@ -33,7 +35,12 @@ const main = async () => {
     },
   });
   const ours = new OurExchangers(config.OUR_SERVER_URL);
-  const ctx: JobCtx = { store, client, config, ours, log: logger("job") };
+  const strapi =
+    config.STRAPI_AUTH_IDENTIFIER && config.STRAPI_AUTH_PASSWORD
+      ? new StrapiClient({ baseUrl: config.STRAPI_URL, identifier: config.STRAPI_AUTH_IDENTIFIER, password: config.STRAPI_AUTH_PASSWORD })
+      : undefined;
+  if (!strapi) log.warn("no STRAPI_AUTH_IDENTIFIER/PASSWORD: reviews will not be written to Strapi");
+  const ctx: JobCtx = { store, client, config, ours, log: logger("job"), strapi };
 
   let scheduler: Scheduler | null = null;
   if (config.ENABLE_JOBS) {
@@ -42,6 +49,7 @@ const main = async () => {
       if (!s.enabled(config)) continue;
       for (const job of s.jobs(config)) scheduler.add(job);
     }
+    scheduler.add({ name: "strapi.sync", everyMs: 5 * 60_000, initialDelayMs: 300_000, run: runStrapiSync });
     scheduler.add({
       name: "housekeeping",
       everyMs: 24 * 3600_000,
