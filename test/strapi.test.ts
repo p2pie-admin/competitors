@@ -251,3 +251,16 @@ test("sync nudges the front to regenerate the pages of exchangers it changed", a
   assert.deepEqual(JSON.parse(hits[0]!).paths, ["/exchangers/sova"]);
   assert.equal((await runStrapiSync(withFetch)).revalidated, 0, "nothing changed, nothing to regenerate");
 });
+
+test("only the newest N reviews per exchanger and source are kept in Strapi; the rest are removed", async () => {
+  const { ctx, store, fake } = setup({ MAX_PUBLIC_REVIEWS: "3" });
+  for (const n of ["1", "2", "3", "4", "5"]) store.upsertReview(review(n)); // posted_at falls with n: 1 is the newest
+  await runStrapiSync(ctx);
+  assert.deepEqual([...fake.reviews.values()].map((r) => r.external_id).sort(), ["bestchange:1", "bestchange:2", "bestchange:3"]);
+  // a newer review pushes the oldest of the three out
+  store.upsertReview(review("0", { posted_at: NOW }));
+  const s = await runStrapiSync(ctx);
+  assert.equal(s.created, 1);
+  assert.equal(s.removed, 1);
+  assert.deepEqual([...fake.reviews.values()].map((r) => r.external_id).sort(), ["bestchange:0", "bestchange:1", "bestchange:2"]);
+});

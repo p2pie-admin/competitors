@@ -45,6 +45,7 @@ export const runStrapiSync = async (ctx: JobCtx): Promise<Record<string, unknown
   let consecutiveErrors = 0;
   const minPostedAt = Math.floor(Date.now() / 1000) - config.MAX_REVIEW_AGE_DAYS * 86400;
   const killSwitch = !config.PUBLISH_REVIEW_TEXTS;
+  const cap = config.MAX_PUBLIC_REVIEWS; // newest N per exchanger and source
 
   const guard = async (what: string, fn: () => Promise<void>): Promise<boolean> => {
     try {
@@ -74,7 +75,7 @@ export const runStrapiSync = async (ctx: JobCtx): Promise<Record<string, unknown
   }
 
   // 2. removals
-  for (const r of store.syncToRemove(minPostedAt, killSwitch, Math.max(budget, 1))) {
+  for (const r of store.syncToRemove(minPostedAt, cap, killSwitch, Math.max(budget, 1))) {
     if (budget <= 0 || tooManyErrors()) break;
     const ok = await guard("remove", async () => {
       if (r.strapi_reply_id) await strapi.deleteReply(r.strapi_reply_id);
@@ -87,7 +88,7 @@ export const runStrapiSync = async (ctx: JobCtx): Promise<Record<string, unknown
 
   // 3. updates
   if (!killSwitch) {
-    for (const r of store.syncPublished(minPostedAt)) {
+    for (const r of store.syncPublished(minPostedAt, cap)) {
       if (budget <= 0 || tooManyErrors()) break;
       const hash = contentHash(r, r.our_exchanger_id);
       if (hash === r.synced_hash) continue;
@@ -115,7 +116,7 @@ export const runStrapiSync = async (ctx: JobCtx): Promise<Record<string, unknown
 
   // 4. creates
   if (!killSwitch) {
-    for (const r of store.syncToCreate(minPostedAt, Math.max(budget, 1))) {
+    for (const r of store.syncToCreate(minPostedAt, cap, Math.max(budget, 1))) {
       if (budget <= 0 || tooManyErrors()) break;
       const ok = await guard("create", async () => {
         const data = toStrapiReview(r, r.our_exchanger_id);
