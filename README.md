@@ -1,7 +1,7 @@
 # competitors
 
 Backend service of p2pie.com that collects data about **exchangers listed on competing monitorings**
-(BestChange, KursExpert, ChangeInfo, E-mon, Wellcrypto so far) and feeds it to the site:
+(BestChange, KursExpert, ChangeInfo, E-mon, Wellcrypto, Obmify so far) and feeds it to the site:
 
 - exchanger facts from the source: reserves, number of directions, review counters, claims, age;
 - review **texts copied with the source named** and a link to the original. They are written into Strapi's native
@@ -13,7 +13,7 @@ It is a separate service like `server`/`parser`: Fastify + TypeScript, its own D
 reachable only inside the docker network (`http://competitors:5100`), not exposed through the reverse proxy.
 
 ```
- sources: BestChange · KursExpert · ChangeInfo · E-mon · Wellcrypto (more: see "Sources we looked at")
+ sources: BestChange · KursExpert · ChangeInfo · E-mon · Wellcrypto · Obmify (more: see "Sources we looked at")
                           info.zip (official export)        exchanger pages (robots.txt allowed only)
                                    │                                    │
                                    ▼                                    ▼
@@ -170,6 +170,7 @@ links/contacts (moderation) and **exchanger replies are copied only when they ar
 | ChangeInfo (changeinfo.ru) | **done** | `/exchangers` list (name, website → domain match, reserve, counters), reviews on `/review/<name>` (the `/positive` and `/negative` sub-pages are disallowed by robots.txt and never requested); the feed has a lot of test spam (random strings, pasted code, invoices), so moderation also rejects gibberish, code and 40+ character tokens |
 | E-mon (e-mon.cc) | **done** | robots.txt open; `/exchangers` (429 exchangers with website → domain match, status, reserve, counters), `/exchanger/<id>` shows up to 200 newest reviews (tone classes bad/good/very-good/excellent; `type-comment` follow-ups are skipped); many exchangers' reviews are old (2020) and fall outside the 365-day window |
 | Wellcrypto (wellcrypto.io) | **done** | robots.txt open; `/ru/exchangers/` (226 exchangers), `/ru/exchangers/<slug>/` renders the 25 newest reviews with a tone class (`positive _confirmed`); the site exposes no review ids, so ids are a stable hash of author+date+text; the "Перейти" button gives the exchanger's domain |
+| Obmify (obmify.com) | **done** | Ukrainian monitoring, Nuxt SSR; robots.txt closes only `/api/` (where the review cards load from), so the page's JSON-LD `Organization` block is read: 10 newest reviews with stars (→ tone), author, ISO date, plus the referral `url` (→ domain for matching) and the total count. 161 exchangers, 9 overlap with ours by name. Ids = hash of author+date+text |
 | bits.media (exchanger.bits.media) | too small | only 7 exchangers listed |
 | Scanbit.ua | skipped | Ukrainian market, 49 exchangers, 3 overlap with ours; Nuxt SSR with JSON-LD reviews — easy to add later if wanted |
 | ExchangeSumo | no texts | reviews are loaded through `/comment/…`, which its robots.txt disallows; no server-rendered reviews |

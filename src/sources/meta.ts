@@ -5,5 +5,6 @@ export const SOURCE_LABELS: Record<string, string> = {
   changeinfo: "ChangeInfo",
   emon: "E-mon",
   wellcrypto: "Wellcrypto",
+  obmify: "Obmify",
 };
 export const sourceLabel = (id: string): string => SOURCE_LABELS[id] ?? id;

@@ -91,6 +91,13 @@ const schema = z.object({
   WELLCRYPTO_PAGES_PER_TICK: int(6, 1, 100),
   WELLCRYPTO_CRAWL_TICK_MIN: int(10, 1),
 
+  // --- Obmify (obmify.com) ---
+  OBMIFY_ENABLED: bool(true),
+  OBMIFY_SITE: z.string().default("https://obmify.com"),
+  OBMIFY_LINKED_REFRESH_H: int(12, 1),
+  OBMIFY_PAGES_PER_TICK: int(6, 1, 100),
+  OBMIFY_CRAWL_TICK_MIN: int(10, 1),
+
   // Review moderation / publication limits.
   MIN_REVIEW_CHARS: int(15, 1),
   MAX_PUBLIC_REVIEWS: int(30, 1, 200),
