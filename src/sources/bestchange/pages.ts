@@ -158,8 +158,11 @@ export const parseExchangerPage = (html: string): ParsedExchangerPage => {
       }
     }
 
-    // Icon 1 = ordinary review, icon 2 = financial claim (counted, never republished); else unknown.
-    const kind: ParsedReview["kind"] = typeIcon === 1 ? "review" : typeIcon === 2 ? "claim" : "unknown";
+    // Markup verified 2026-10-05 on a page with an open claim: an ordinary review is review_block_1 (stars optional),
+    // an OPEN FINANCIAL CLAIM is review_block_2 (no stars, same icon), review_block_3 is a review the moderators
+    // flagged (held back by moderation). Claims are counted but never republished.
+    const block = Number(cls[1]);
+    const kind: ParsedReview["kind"] = block === 2 ? "claim" : typeIcon === 1 && (block === 1 || block === 3) ? "review" : "unknown";
 
     reviews.push({
       extReviewId: idm[1]!,

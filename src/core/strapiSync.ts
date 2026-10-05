@@ -139,6 +139,9 @@ export const runStrapiSync = async (ctx: JobCtx): Promise<Record<string, unknown
     }
   }
   // Pages are static (ISR): regenerate the exchangers whose reviews just changed.
-  if (touched.size) stats.revalidated = (await revalidateExchangerPages(config, [...touched], ctx.fetch)).requested;
+  const names = [...touched];
+  for (let i = 0; i < names.length; i += 50) {
+    stats.revalidated += (await revalidateExchangerPages(config, names.slice(i, i + 50), ctx.fetch)).requested;
+  }
   return stats;
 };

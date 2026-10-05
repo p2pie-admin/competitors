@@ -81,3 +81,13 @@ test("garbage html does not throw", () => {
   assert.equal(p.reviews.length, 0);
   assert.deepEqual(parseListPage("<html></html>"), []);
 });
+
+test("open financial claims (review_block_2) are claims, flagged reviews (block_3) stay reviews", () => {
+  const p = parseExchangerPage(fx("bestchange-exchanger-24obmin.html"));
+  assert.equal(p.claimsOpen, 1);
+  assert.equal(p.claimsClosed, 302);
+  const kinds = p.reviews.map((r) => [r.blockType, r.kind]);
+  assert.ok(kinds.some(([b, k]) => b === 2 && k === "claim"), "block_2 -> claim: " + JSON.stringify(kinds));
+  assert.ok(kinds.some(([b, k]) => b === 3 && k === "review"));
+  assert.ok(kinds.filter(([b]) => b === 1).every(([, k]) => k === "review"));
+});

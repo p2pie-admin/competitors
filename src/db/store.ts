@@ -336,6 +336,14 @@ export class Store {
     return row.n;
   }
 
+  /** Mark a stored review as rejected when a later crawl shows it is not a review (claim, comment). No-op when absent. */
+  retireIfPresent(source: string, extReviewId: string, reason: string): boolean {
+    const res = this.db
+      .prepare("UPDATE external_reviews SET status = 'rejected', reject_reason = ?, updated_at = ? WHERE source = ? AND ext_review_id = ? AND status != 'rejected'")
+      .run(reason, nowSec(), source, extReviewId);
+    return res.changes > 0;
+  }
+
   getReview(id: number): ExternalReview | undefined {
     return this.db.prepare("SELECT * FROM external_reviews WHERE id = ?").get(id) as ExternalReview | undefined;
   }

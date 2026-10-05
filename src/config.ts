@@ -77,6 +77,20 @@ const schema = z.object({
   CHANGEINFO_PAGES_PER_TICK: int(6, 1, 100),
   CHANGEINFO_CRAWL_TICK_MIN: int(10, 1),
 
+  // --- E-mon (e-mon.cc) ---
+  EMON_ENABLED: bool(true),
+  EMON_SITE: z.string().default("https://e-mon.cc"),
+  EMON_LINKED_REFRESH_H: int(12, 1),
+  EMON_PAGES_PER_TICK: int(6, 1, 100),
+  EMON_CRAWL_TICK_MIN: int(10, 1),
+
+  // --- Wellcrypto (wellcrypto.io) ---
+  WELLCRYPTO_ENABLED: bool(true),
+  WELLCRYPTO_SITE: z.string().default("https://wellcrypto.io"),
+  WELLCRYPTO_LINKED_REFRESH_H: int(12, 1),
+  WELLCRYPTO_PAGES_PER_TICK: int(6, 1, 100),
+  WELLCRYPTO_CRAWL_TICK_MIN: int(10, 1),
+
   // Review moderation / publication limits.
   MIN_REVIEW_CHARS: int(15, 1),
   MAX_PUBLIC_REVIEWS: int(30, 1, 200),

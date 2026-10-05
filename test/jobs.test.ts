@@ -253,3 +253,16 @@ test("pages job asks the front to revalidate exchangers with new reviews", async
   assert.equal(stats.revalidated, 1);
   assert.deepEqual(JSON.parse(hits[0]!).paths, ["/exchangers/sova"]);
 });
+
+test("a stored review that a later crawl shows to be a claim is retired", async () => {
+  const { importReviews } = await import("../src/core/importReviews");
+  const { ctx, store } = setup([]);
+  const base = { author: "A", country: null, rating: null, sentiment: null, postedAt: 1_790_000_000, permalink: "u", flagTexts: [], reply: null, text: "Не выплатили заявку уже третий день, прошу разобраться" };
+  importReviews(ctx, "bestchange", { ext_id: "1006" }, [{ ...base, extReviewId: "5", kind: "review" }], "https://x");
+  assert.equal(store.listReviews({ limit: 5, offset: 0 })[0]!.status, "published");
+  const s = importReviews(ctx, "bestchange", { ext_id: "1006" }, [{ ...base, extReviewId: "5", kind: "claim" }], "https://x");
+  assert.equal(s.skippedClaims, 1);
+  const row = store.listReviews({ limit: 5, offset: 0 })[0]!;
+  assert.equal(row.status, "rejected");
+  assert.equal(row.reject_reason, "claim");
+});

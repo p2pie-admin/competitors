@@ -1,7 +1,7 @@
 # competitors
 
 Backend service of p2pie.com that collects data about **exchangers listed on competing monitorings**
-(BestChange, KursExpert, ChangeInfo so far) and feeds it to the site:
+(BestChange, KursExpert, ChangeInfo, E-mon, Wellcrypto so far) and feeds it to the site:
 
 - exchanger facts from the source: reserves, number of directions, review counters, claims, age;
 - review **texts copied with the source named** and a link to the original. They are written into Strapi's native
@@ -13,7 +13,7 @@ It is a separate service like `server`/`parser`: Fastify + TypeScript, its own D
 reachable only inside the docker network (`http://competitors:5100`), not exposed through the reverse proxy.
 
 ```
- sources: BestChange · KursExpert · (more: see "Sources we looked at")
+ sources: BestChange · KursExpert · ChangeInfo · E-mon · Wellcrypto (more: see "Sources we looked at")
                           info.zip (official export)        exchanger pages (robots.txt allowed only)
                                    │                                    │
                                    ▼                                    ▼
@@ -57,7 +57,7 @@ reachable only inside the docker network (`http://competitors:5100`), not expose
 
 - Stored per review: source id, author's public nickname, country, stars, text, date, **permalink**, the exchanger's reply.
   **Never stored: the (masked) IP address**, e-mail, anything else on the page.
-- Only ordinary reviews are imported. **Financial claims are not republished** (only their count is shown).
+- Only ordinary reviews are imported. **Financial claims are not republished** (only their count is shown). On BestChange an open claim is `review_block_2` (verified 2026-10-05); a row that a later crawl shows to be a claim/comment is retired (`rejected: claim`) and its Strapi copy removed.
 - Moderation (`src/core/moderation.ts`) rejects: too short, mostly non-text, links/e-mails/@handles/messenger contacts,
   phone numbers, crypto addresses/long hashes, card numbers, Russian profanity, copy-paste duplicates (≥ 3 identical texts for
   one exchanger). **Sentiment is never a filter**: negative reviews are shown exactly like positive ones, otherwise the block
@@ -168,6 +168,10 @@ links/contacts (moderation) and **exchanger replies are copied only when they ar
 | BestChange | **done** | official `info.zip` + plain exchanger pages; query URLs forbidden by robots.txt |
 | KursExpert (kurs.expert) | **done** | robots.txt open; list `/ru/obmennik.html` (369 exchangers, counters, reserves), reviews on `/ru/obmennik/<slug>/feedbacks.html` (~40 newest per page, tone given by the source); its negative reviews ("претензия") are imported too so the picture stays balanced; user-to-user answers are not |
 | ChangeInfo (changeinfo.ru) | **done** | `/exchangers` list (name, website → domain match, reserve, counters), reviews on `/review/<name>` (the `/positive` and `/negative` sub-pages are disallowed by robots.txt and never requested); the feed has a lot of test spam (random strings, pasted code, invoices), so moderation also rejects gibberish, code and 40+ character tokens |
+| E-mon (e-mon.cc) | **done** | robots.txt open; `/exchangers` (429 exchangers with website → domain match, status, reserve, counters), `/exchanger/<id>` shows up to 200 newest reviews (tone classes bad/good/very-good/excellent; `type-comment` follow-ups are skipped); many exchangers' reviews are old (2020) and fall outside the 365-day window |
+| Wellcrypto (wellcrypto.io) | **done** | robots.txt open; `/ru/exchangers/` (226 exchangers), `/ru/exchangers/<slug>/` renders the 25 newest reviews with a tone class (`positive _confirmed`); the site exposes no review ids, so ids are a stable hash of author+date+text; the "Перейти" button gives the exchanger's domain |
+| bits.media (exchanger.bits.media) | too small | only 7 exchangers listed |
+| Scanbit.ua | skipped | Ukrainian market, 49 exchangers, 3 overlap with ours; Nuxt SSR with JSON-LD reviews — easy to add later if wanted |
 | ExchangeSumo | no texts | reviews are loaded through `/comment/…`, which its robots.txt disallows; no server-rendered reviews |
 | OKChanger | skipped | exchanger pages take 80+ s and 1.4 MB, reviews load by AJAX (`view-thread`, disallowed) |
 | Exnode.ru | blocked | answers 403 to non-browser clients (anti-bot); we do not circumvent protections |

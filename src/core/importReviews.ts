@@ -44,7 +44,9 @@ export const importReviews = (
     stats.seen++;
     if (r.kind !== "review") {
       // Formal claim registers name specific parties and are disputed by nature: only their COUNT is shown.
+      // If an earlier crawl stored it as a review (markup misread), retire it now — the Strapi sync removes the copy.
       stats.skippedClaims++;
+      store.retireIfPresent(source, r.extReviewId, r.kind === "claim" ? "claim" : "not-a-review");
       continue;
     }
     if (!r.postedAt) continue;
