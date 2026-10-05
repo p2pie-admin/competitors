@@ -144,15 +144,22 @@ annoying, not fatal — except `takedowns` and manual links: keep the volume bac
 | `fingerprint` | `ext:<source>:<review id>` — unique, so a retry after a crash adopts the existing copy |
 | `source` | display name ("BestChange", "KursExpert") |
 | `external_link` | permalink of the review on the source |
-| `external_id`, `external_date` | `<source>:<id>`, the original date (Strapi's `createdAt` cannot be set, the front sorts and shows `external_date`) |
+| `external_id`, `external_date` | `<source>:<id>`, the original date |
+| `review_date` | the date reviews are shown and sorted by, for ALL reviews: = `external_date` for copies, creation time for our own (Strapi lifecycle `beforeCreate` default + one-off backfill; Strapi's `createdAt` cannot be set via the API) |
 | `review_replies` | the exchanger's reply (`from: "exchanger"`) when the source has one |
 
 Rules: unrated reviews (no stars and no tone) are not synced; Strapi does not cascade deletes, so replies are deleted
 explicitly; a review deleted in Strapi by hand is marked `hidden` here and never resurrected; `PUBLISH_REVIEW_TEXTS=false`
 removes every copy from Strapi (kill switch); takedowns delete the copy through `strapi_tombstones`. Credentials are the
 `STRAPI_AUTH_IDENTIFIER/PASSWORD` of the `parser` user already in the shared `.env`. Batch size `STRAPI_SYNC_BATCH` (40 per run).
-The front (`services/queries.ts`) asks for `source external_link external_date`, sorts by `external_date`, and the global
-"latest reviews" feed on the home page excludes copies (`source: { null: true }`).
+The exchanger page (front) loads **10 reviews** of all sources merged and sorted by `review_date` (top-level `reviews` query filtered by
+exchanger, `services/exchangerReviews.ts`); "Показать ещё N из M" and the tone filters fetch further pages of 10 from
+`/api/exchanger-reviews?id=&start=&type=` (cached 60 s, ids/offsets validated). The light nested `reviews` list (`type`, `source`, up to 100)
+only feeds the counters. The global "latest reviews" feed on the home page excludes copies (`source: { null: true }`).
+
+**No outbound links to other sites from the reviews area** (SEO): the source tag is not an `<a>` — `components/shared/OutLink.tsx` is a
+`role="link"` span that opens `external_link` in a new tab on click, so crawlers see text, not a link. Review texts never contain
+links/contacts (moderation) and **exchanger replies are copied only when they are free of links, e-mails, handles and phones**.
 
 ## Sources we looked at (2026-10-04)
 
