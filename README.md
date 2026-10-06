@@ -79,6 +79,14 @@ reachable only inside the docker network (`http://competitors:5100`), not expose
 Links made by a human (`PUT /admin/links`) are `locked` and never touched by the matcher. Links the matcher made that no longer
 hold are removed, and with them the reviews disappear from the site.
 
+Manual review of the conflict list (2026-10-06): the BestChange exchanger page `<title>` ends with the real domain in brackets
+(`Обменник E-Change – … (e-change.io)`), which settles most "same name, different domain" cases — the second domain is usually a
+mirror or a move (exdex.ae → exdex.xyz, ponybit.ru → ponybit.org, flashobmen.com → .io, xchange.fund = xchange.pub, royalcash.cc ↔ .info,
+cryptokzn.ru → .com, coinblinker.me ↔ .org). Linked by hand (locked). Left unlinked on purpose: BestChange `Boss-Exchange`
+(boss-exchange.com, a different business from our bossexchange.pro, which is linked to `BossExchangePro`), `WorldChange` (worldchange.cc is
+not the WorldChange.ru/.me brand we list); `Exchnage` and `Swapbit` are not on BestChange at all. Possible matcher improvement: read the
+domain from the page title when the export has none.
+
 ## Public API (internal)
 
 `GET /v1/exchangers/:ourId/external?limit=&offset=&type=positive|neutral|negative` →
