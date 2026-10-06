@@ -150,6 +150,26 @@ test("match job: links by domain/name, ignores drafts, keeps manual links, drops
   assert.equal(store.getLink("bestchange", "1002"), undefined);
 });
 
+test("match job: a conflict settled by a locked manual link is no longer reported", async () => {
+  // Same name as our exchanger, but BestChange knows a different domain -> conflict, no automatic link.
+  const oursConflict = { ...ours, "870": { id: "870", name: "Ex1010", status: "active", ref_link: "https://ex1010.com/?r=1" } };
+  const { ctx, store } = setup([zipRoute, listRoute], {}, oursConflict);
+  await runApiJob(ctx);
+  await runListJob(ctx);
+  store.setDomainIfMissing("bestchange", "1010", "other.net");
+  const s1 = await runMatchJob(ctx);
+  assert.equal(s1.conflicts, 1);
+  assert.equal(JSON.parse(store.kvGet("bestchange:match:conflicts")!)[0].ext_id, "1010");
+  assert.equal(store.getLink("bestchange", "1010"), undefined);
+
+  // a human decides it is the same business: the locked link closes the conflict
+  store.upsertLink({ source: "bestchange", ext_id: "1010", our_exchanger_id: "870", our_name: "Ex1010", method: "manual", confidence: 1, locked: true });
+  const s2 = await runMatchJob(ctx);
+  assert.equal(s2.conflicts, 0);
+  assert.deepEqual(JSON.parse(store.kvGet("bestchange:match:conflicts")!), []);
+  assert.equal(store.getLink("bestchange", "1010")!.our_exchanger_id, "870");
+});
+
 test("pages job: crawls only linked exchangers, imports reviews with moderation, never requests query URLs", async () => {
   const { ctx, store, seen } = setup([zipRoute, listRoute, sovaPage], {}, ours);
   await runApiJob(ctx);

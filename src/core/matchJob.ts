@@ -40,7 +40,10 @@ export const runMatchJob = async (ctx: JobCtx, source: string, prepare?: () => v
     }
   })();
 
-  store.kvSet(`${source}:match:conflicts`, JSON.stringify(conflicts.slice(0, 200)));
-  for (const c of conflicts.slice(0, 20)) log.warn("match conflict", { source, ...c });
-  return { ours: ourList.length, theirs: theirs.length, linked: matches.length, created, updated, removed, conflicts: conflicts.length };
+  // A conflict a human has already settled with a locked link is not open any more; keep it out of /admin/unmatched.
+  const locked = new Set(store.listLinks(source).filter((l) => l.locked).map((l) => l.ext_id));
+  const open = conflicts.filter((c) => !locked.has(c.ext_id));
+  store.kvSet(`${source}:match:conflicts`, JSON.stringify(open.slice(0, 200)));
+  for (const c of open.slice(0, 20)) log.warn("match conflict", { source, ...c });
+  return { ours: ourList.length, theirs: theirs.length, linked: matches.length, created, updated, removed, conflicts: open.length };
 };
