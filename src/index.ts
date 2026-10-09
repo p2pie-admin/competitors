@@ -11,6 +11,7 @@ import { nowSec } from "./db";
 import type { JobCtx } from "./core/types";
 import { StrapiClient } from "./core/strapi";
 import { runStrapiSync } from "./core/strapiSync";
+import { runRatingSync } from "./core/ratingSync";
 
 const log = logger("main");
 
@@ -50,6 +51,7 @@ const main = async () => {
       for (const job of s.jobs(config)) scheduler.add(job);
     }
     scheduler.add({ name: "strapi.sync", everyMs: 5 * 60_000, initialDelayMs: 300_000, run: runStrapiSync });
+    scheduler.add({ name: "rating.sync", everyMs: config.RATING_SYNC_INTERVAL_MIN * 60_000, initialDelayMs: 420_000, run: runRatingSync });
     scheduler.add({
       name: "housekeeping",
       everyMs: 24 * 3600_000,

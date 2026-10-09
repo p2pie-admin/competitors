@@ -101,11 +101,27 @@ domain from the page title when the export has none.
 `POST /admin/reviews/:id/hide|publish` · `GET|POST /admin/takedowns` · `POST /admin/jobs/:name/run` · `GET /admin/fetches` ·
 `GET /admin/history/:source/:extId`. From the VDS: `docker exec competitors wget -qO- --header "Authorization: Bearer …" http://127.0.0.1:5100/admin/status`.
 
+## Rating and trust level (since 2026-10-09)
+
+Job `rating.sync` (hourly, `RATING_SYNC_*` env) recomputes two numbers for every listed exchanger (status active/suspended) and
+writes the changed ones to Strapi `exchanger`: `admin_rating` (stars, 0 = no reviews = hidden), `trust_level`
+(unknown / caution / verified / reliable), `trust_score` (0..100), `reviews_count`, `rating_details` (breakdown shown on the page),
+`rating_updated_at`. Method: `src/core/rating.ts` (pure, tested in `test/rating.test.ts`); its public description is the front page
+`/rating` (`front/pages/rating/index.tsx`) — change both together and bump `METHOD_VERSION`.
+
+- Stars = smoothed share of positive reviews (prior 30 reviews at 0.85; a negative review or an open claim weighs 10).
+- Trust = reviews volume (30, log) + age (25, full at 5 years) + monitorings (20) + our check (15 / 5 / −25) + live rates (10) − claims / negative share.
+- Inputs from this DB: counters, claims and age of the linked source exchangers (a missing link = missing reviews: fix it with
+  `PUT /admin/links`); sources without counters (Obmify) are judged by the reviews we collected. From Strapi: our users' reviews,
+  `exchanger_card.date_created`, `status`, and the manual fields `check_verdict` / `check_score` / `check_date` (result of
+  `p2pie-ops/agent/exchanger-check.md`) and `rating_locked` (true = the job never touches this exchanger).
+- Run now: `POST /admin/jobs/rating.sync/run` (JSON body `{}`); the stats list a sample of changed names.
+
 ## On the site
 
 `front`: `services/competitors.ts` (fetch, optional — null on any failure, env `COMPETITORS_URL=http://competitors:5100`),
 `components/exchangers/exchanger/ExternalReviews.tsx`. The block is labelled "Отзывы на BestChange", every review links to the
-original, there is a notice that these are **not p2pie users' reviews and not part of our rating**. No schema.org Review markup,
+original, there is a notice that these are **not p2pie users' reviews** (since 2026-10-09 their counts DO feed the rating, see below). No schema.org Review markup,
 no `aggregateRating` (self-serving/third-party markup is a ranking risk), the texts sit inside Yandex `<noindex>` and
 `data-nosnippet`, so copied text is shown to people but is not offered to the index. All source links are `nofollow`.
 

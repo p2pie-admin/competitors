@@ -42,6 +42,11 @@ const schema = z.object({
   STRAPI_AUTH_PASSWORD: z.string().optional(),
   STRAPI_SYNC_ENABLED: bool(true),
   STRAPI_SYNC_BATCH: int(40, 1, 500),
+  // Stars + trust level of our exchangers, recomputed and written to Strapi (job rating.sync, see core/rating.ts).
+  RATING_SYNC_ENABLED: bool(true),
+  RATING_SYNC_INTERVAL_MIN: int(60, 5),
+  // Strapi writes per run; the first run touches every exchanger.
+  RATING_SYNC_BATCH: int(300, 1, 5000),
   // Master switches.
   ENABLE_JOBS: bool(true),
   // Publishing of review TEXTS. When false the service still collects and counts, but the public

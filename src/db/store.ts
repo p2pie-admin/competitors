@@ -260,6 +260,16 @@ export class Store {
   getLink(source: string, extId: string): Link | undefined {
     return this.db.prepare("SELECT * FROM exchanger_links WHERE source = ? AND ext_id = ?").get(source, extId) as Link | undefined;
   }
+  /** Sentiment of the reviews we collected for one source exchanger (for sources that publish no counters). */
+  sentimentCounts(source: string, extId: string): { positive: number; negative: number } {
+    const rows = this.db
+      .prepare("SELECT sentiment, COUNT(*) AS n FROM external_reviews WHERE source = ? AND ext_id = ? AND sentiment IN ('positive', 'negative') GROUP BY sentiment")
+      .all(source, extId) as Array<{ sentiment: "positive" | "negative"; n: number }>;
+    const out = { positive: 0, negative: 0 };
+    for (const r of rows) out[r.sentiment] = r.n;
+    return out;
+  }
+
   linksForOur(ourId: string): Link[] {
     return this.db.prepare("SELECT * FROM exchanger_links WHERE our_exchanger_id = ?").all(ourId) as Link[];
   }
